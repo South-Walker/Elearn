@@ -1,0 +1,25 @@
+{"button":
+    [{ 
+        "name":"单词", 
+        "sub_button":
+        [
+            {"type":"click","name":"学习","key":"elearning_wordlearn"},
+            {"type":"click","name":"巩固训练","key":"elearning_wordintensivelearn"},
+            {"type":"view","name":"生词本","url":"https://www.baidu.com"}
+            ]
+        },
+        {
+        "name":"课文", 
+        "sub_button":
+        [
+            {"type":"click","name":"学习","key":"elearning_testlearn"},
+            {"type":"click","name":"巩固训练","key":"elearning_testintensivelearn"},
+            {"type":"view","name":"错题本","url":"http://www.baidu.com"}
+            ]
+        },
+        { 
+        "name":"口语训练", 
+        "sub_button":
+        [
+            {"type":"view","name":"waiting","url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7605be91175e1d69&redirect_uri=http%3A%2F%2Fh5.ixiuzan.cn%2Fbridge%2Findex.html%3FbackUrl%3Dhttp%253A%252F%252Fdvomg.xiuzan001.cn%252Fbaoming%252FplGx7j3omgZQ.html&response_type=code&scope=snsapi_userinfo&state=869971&connect_redirect=1#wechat_redirect"}
+]}]}
