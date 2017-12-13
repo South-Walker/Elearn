@@ -1,20 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Security.Cryptography;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Net;
-using System.IO;
-using System.Xml;
-using System.Data;
 using System.Web.Security;
-using System.Text.RegularExpressions;
-using System.Web.Mvc;
-using WeChatMVC.Controllers;
-using System.Drawing;
+using Elearn.Controllers;
 using Elearn.Models;
 
 namespace Elearn.Controllers
@@ -38,6 +24,7 @@ namespace Elearn.Controllers
                     WechatRequest = new WechatRequest(Request.InputStream);
                     if (WechatRequest.IsClick())
                     {
+                        #region ButtonEvent
                         switch (WechatRequest.EventKey)
                         {
                             case "elearning_wordlearn":
@@ -51,13 +38,18 @@ namespace Elearn.Controllers
                             default:
                                 return WechatRequest.Get_Reply("功能还在开发中，敬请期待");
                         }
+                        #endregion
                     }
                     else if (WechatRequest.IsSubscribe())
                     {
+                        #region FollowEvent
+                        DataBaseController.AddIntoWechatIds(WechatRequest.FromUserName);
                         return WechatRequest.Get_Reply(WechatRequest.elearn_welcome);
+                        #endregion
                     }
                     else
                     {
+                        #region MessageEvent
                         switch (WechatRequest.Content)
                         {
                             case "001":
@@ -67,6 +59,7 @@ namespace Elearn.Controllers
                             default:
                                 return WechatRequest.Get_Reply("识别错误，请重试"); 
                         }
+                        #endregion
                     }
                     #endregion
                 }

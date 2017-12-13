@@ -7,7 +7,7 @@ using System;
 using System.Web.Mvc;
 using System.Web;
 
-namespace WeChatMVC.Models
+namespace Elearn.Models
 {
     public class JWCHttpHelper : MyHttpHelper
     {
@@ -231,6 +231,42 @@ namespace WeChatMVC.Models
             cookiecollection = new CookieCollection();
             cookiecontainer = new CookieContainer();
             IsLogin = false;
+        }
+        public static bool isPasswordTrue(string studentnum, string password)
+        {
+            if (HttpUtility.UrlDecode(password).Length > 10)
+            {
+                return false;
+            }
+            JWCHttpHelper a = new JWCHttpHelper("http://inquiry.ecust.edu.cn/ecustedu/K_StudentQuery/K_StudentQueryLogin.aspx");
+            a.HttpGet();
+            JWCHttpHelper b = new JWCHttpHelper("http://inquiry.ecust.edu.cn/ecustedu/Base/VerifyCode.aspx");
+            Bitmap input = b.HttpGetImage();
+            IdentificatImage id = new IdentificatImage(input);
+            string vc = id.result;
+            JWCHttpHelper c = new JWCHttpHelper("http://inquiry.ecust.edu.cn/ecustedu/K_StudentQuery/K_StudentQueryLogin.aspx");
+            c.HttpPost("__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwULLTE2OTIxNDU0MTMPZBYCAgEPZBYCAgcPDxYCHgRUZXh0BVDlrabnlJ%2FliJ3lp4vlr4bnoIHkuLrouqvku73or4Hlj7flkI7lha3kvY3jgILlr4bnoIHplb%2FluqbkuI3otoXov4cxMOS4quWtl%2BespuOAgmRkZDanEMgmeoYOigCgOHJXPnTdIOtq&TxtStudentid="
+                + studentnum + "&TxtPassword="
+                + password + "&txt_verifyCode="
+                + vc + "&BtnLogin=%E7%99%BB%E5%BD%95&__EVENTVALIDATION=%2FwEWBQKMjOWyBAKf8ICgBwLVqbaRCwLW2qK1CALi44eGDA67X3bLsDOxfx3HDe98WpJ8%2Bncw");
+            string html = c.ToString();
+            if (JWCHttpHelper.regexsuccess.IsMatch(html))
+            {
+                return true;
+            }
+            else if (JWCHttpHelper.regexpwdfail.IsMatch(html))
+            {
+                return false;
+            }
+            else if (JWCHttpHelper.regexstudentnumfail.IsMatch(html))
+            {
+                return false;
+            }
+            else if (JWCHttpHelper.regexvcfail.IsMatch(html))
+            {
+                return isPasswordTrue(studentnum, password);
+            }
+            return false;
         }
     }
     class Letter

@@ -2,82 +2,82 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ElearnDB">
   <DataContextMoniker Name="/ElearnDBDataContext" />
   <nestedChildShapes>
-    <classShape Id="d4ad775e-2002-4636-8a25-9b0430679824" absoluteBounds="1.625, 0.75, 2, 1.3805261230468751">
-      <DataClassMoniker Name="/ElearnDBDataContext/wechat_student_view" />
-      <nestedChildShapes>
-        <elementListCompartment Id="62278fe3-2e18-4b77-a948-373856f36ca0" absoluteBounds="1.6400000000000001, 1.21, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="2e53f6c2-0cb8-461a-ae0b-a75ef523a182" absoluteBounds="3.75, 0.75, 2, 1.3805261230468751">
-      <DataClassMoniker Name="/ElearnDBDataContext/wechat_process_view" />
-      <nestedChildShapes>
-        <elementListCompartment Id="c7453caf-ebfe-4eaf-9d9e-903a131a0496" absoluteBounds="3.7650000000000006, 1.21, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="c7cad316-3205-4767-8fb3-174136d483bf" absoluteBounds="0.5, 2.125, 2, 1.7625655110677081">
-      <DataClassMoniker Name="/ElearnDBDataContext/ewords" />
-      <nestedChildShapes>
-        <elementListCompartment Id="9cda9d0c-b279-44cf-a5d6-75fdb618d8f8" absoluteBounds="0.51500000000000012, 2.585, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="739d0fe9-6997-4792-9563-b06d079c1259" absoluteBounds="3.5, 3.75, 2, 1.5715458170572916">
-      <DataClassMoniker Name="/ElearnDBDataContext/parts" />
-      <nestedChildShapes>
-        <elementListCompartment Id="448533f9-d86f-46da-9639-916ff1a2ca9d" absoluteBounds="3.5149999999999997, 4.21, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(3.5 : 4.28753325553385); (1.95833333333333 : 4.28753325553385 : JumpStart); (1.79166666666667 : 4.28753325553385 : JumpEnd); (0.65625 : 4.28753325553385); (0.65625 : 3.88756551106771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/ElearnDBDataContext/parts/parts_ewords" />
-      <nodes>
-        <classShapeMoniker Id="739d0fe9-6997-4792-9563-b06d079c1259" />
-        <classShapeMoniker Id="c7cad316-3205-4767-8fb3-174136d483bf" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="138729bf-997b-4118-8c6c-d2981cd50643" absoluteBounds="3.5, 2.125, 2, 1.3805261230468751">
+    <classShape Id="ca3ad372-3e9e-4dd5-9b2e-46e996c5f310" absoluteBounds="1.625, 3.125, 2, 1.3805261230468751">
       <DataClassMoniker Name="/ElearnDBDataContext/processes" />
       <nestedChildShapes>
-        <elementListCompartment Id="45d16bd1-371d-460e-a212-bed0b33b7391" absoluteBounds="3.515, 2.585, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3717a37c-00cb-4661-b634-d5d8ee2e82d1" absoluteBounds="1.6400000000000001, 3.585, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 2.84927612304688); (2.66666666666667 : 2.84927612304688 : JumpStart); (2.83333333333333 : 2.84927612304688 : JumpEnd); (3.5 : 2.84927612304688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/ElearnDBDataContext/ewords/ewords_processes" />
-      <nodes>
-        <classShapeMoniker Id="c7cad316-3205-4767-8fb3-174136d483bf" />
-        <classShapeMoniker Id="138729bf-997b-4118-8c6c-d2981cd50643" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 3.75); (4.5 : 3.50552612304688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <classShape Id="e3a957fd-9318-4435-af54-d0702ef3f460" absoluteBounds="0.5, 0.5, 2, 1.5715458170572916">
+      <DataClassMoniker Name="/ElearnDBDataContext/parts" />
+      <nestedChildShapes>
+        <elementListCompartment Id="87476067-46af-41dc-ba46-319aeb744082" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.0625 : 2.07154581705729); (2.0625 : 3.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ElearnDBDataContext/parts/parts_processes" />
       <nodes>
-        <classShapeMoniker Id="739d0fe9-6997-4792-9563-b06d079c1259" />
-        <classShapeMoniker Id="138729bf-997b-4118-8c6c-d2981cd50643" />
+        <classShapeMoniker Id="e3a957fd-9318-4435-af54-d0702ef3f460" />
+        <classShapeMoniker Id="ca3ad372-3e9e-4dd5-9b2e-46e996c5f310" />
       </nodes>
     </associationConnector>
-    <classShape Id="c019405e-7487-4707-a2d8-fb13d00c3768" absoluteBounds="0.875, 4.75, 2, 1.3805261230468751">
+    <classShape Id="1a61d276-77c8-4f1e-9af0-45d18dca217c" absoluteBounds="3, 0.625, 2, 1.7625655110677081">
+      <DataClassMoniker Name="/ElearnDBDataContext/ewords" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2ab024ed-6267-4748-94d3-332f0731fcf8" absoluteBounds="3.015, 1.085, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.3125 : 2.38756551106771); (3.3125 : 3.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ElearnDBDataContext/ewords/ewords_processes" />
+      <nodes>
+        <classShapeMoniker Id="1a61d276-77c8-4f1e-9af0-45d18dca217c" />
+        <classShapeMoniker Id="ca3ad372-3e9e-4dd5-9b2e-46e996c5f310" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 1.34827290852865); (3 : 1.34827290852865)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ElearnDBDataContext/parts/parts_ewords" />
+      <nodes>
+        <classShapeMoniker Id="e3a957fd-9318-4435-af54-d0702ef3f460" />
+        <classShapeMoniker Id="1a61d276-77c8-4f1e-9af0-45d18dca217c" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="9b5915ff-f68d-4fa8-afce-7489f5e2678e" absoluteBounds="1.25, 5.25, 2, 1.3805261230468751">
       <DataClassMoniker Name="/ElearnDBDataContext/students" />
       <nestedChildShapes>
-        <elementListCompartment Id="334eae11-77e6-479c-a734-c434dc89a982" absoluteBounds="0.89, 5.21, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3cdf2808-45a5-4642-98b6-66b12929dc29" absoluteBounds="1.2650000000000001, 5.71, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.875 : 4.75); (1.875 : 4.13756551106771); (2.75 : 4.13756551106771); (2.75 : 2.45864962304688); (3.5 : 2.45864962304688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.4375 : 5.25); (2.4375 : 4.50552612304688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ElearnDBDataContext/students/students_processes" />
       <nodes>
-        <classShapeMoniker Id="c019405e-7487-4707-a2d8-fb13d00c3768" />
-        <classShapeMoniker Id="138729bf-997b-4118-8c6c-d2981cd50643" />
+        <classShapeMoniker Id="9b5915ff-f68d-4fa8-afce-7489f5e2678e" />
+        <classShapeMoniker Id="ca3ad372-3e9e-4dd5-9b2e-46e996c5f310" />
       </nodes>
     </associationConnector>
-    <classShape Id="47d24f70-d8be-42f8-b448-b513ab8fd7ae" absoluteBounds="4.25, 6.25, 2, 1.3805261230468751">
+    <classShape Id="b6b14787-2bad-49b3-8560-ede190c489fc" absoluteBounds="3.875, 5.25, 2, 1.3805261230468751">
       <DataClassMoniker Name="/ElearnDBDataContext/wechatids" />
       <nestedChildShapes>
-        <elementListCompartment Id="77cce2a7-d750-4234-9051-7694a727b396" absoluteBounds="4.265, 6.71, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8fa1f192-e771-4097-ad5a-94a13aa814fc" absoluteBounds="3.8899999999999997, 5.71, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.25 : 6.94026306152344); (1.875 : 6.94026306152344); (1.875 : 6.13052612304688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.875 : 5.94026306152344); (3.25 : 5.94026306152344)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ElearnDBDataContext/wechatids/wechatids_students" />
       <nodes>
-        <classShapeMoniker Id="47d24f70-d8be-42f8-b448-b513ab8fd7ae" />
-        <classShapeMoniker Id="c019405e-7487-4707-a2d8-fb13d00c3768" />
+        <classShapeMoniker Id="b6b14787-2bad-49b3-8560-ede190c489fc" />
+        <classShapeMoniker Id="9b5915ff-f68d-4fa8-afce-7489f5e2678e" />
       </nodes>
     </associationConnector>
+    <classShape Id="eeb649c5-5acf-44ce-9722-5b164549416b" absoluteBounds="5.875, 4.25, 2, 1.3805261230468751">
+      <DataClassMoniker Name="/ElearnDBDataContext/wechat_process_view" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d1ce6ba8-c445-415b-998e-e8fab370412e" absoluteBounds="5.89, 4.71, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="76a3b9a0-3b6d-46cd-aaec-f2a070812594" absoluteBounds="5.625, 2.75, 2, 1.3805261230468751">
+      <DataClassMoniker Name="/ElearnDBDataContext/wechat_student_view" />
+      <nestedChildShapes>
+        <elementListCompartment Id="82eaee4f-2943-409e-9a0c-bed17ce892de" absoluteBounds="5.64, 3.21, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -4,7 +4,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.Web.Mvc;
 
-namespace WeChatMVC.Controllers
+namespace Elearn.Controllers
 {
     public class BaseController : Controller
     {

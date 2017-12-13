@@ -6,14 +6,14 @@ drop table elearndb.parts;
 drop table elearndb.students;
 drop table elearndb.wechatids;
 drop schema elearndb;
-
+go
 create schema elearndb
-
+go
 create table elearndb.wechatids
 (
     user_id int identity(0,1),
     wechat_id varchar(40),
-    followdate datetime not null DEFAULT getdate(),
+    followdate datetime DEFAULT getdate(),
     PRIMARY KEY (user_id)
 );
 create table elearndb.students
@@ -52,16 +52,28 @@ create table elearndb.processes
     foreign key (eword_id) references elearndb.ewords(eword_id),
     foreign key (part_id) references elearndb.parts(part_id)
 );
+go
+
+create trigger elearndb.wechatids_insert
+on elearndb.wechatids
+    for insert
+as
+    declare @user_id int;
+    select @user_id = user_id from inserted;
+    insert students values (@user_id,null,null);
+go
 
 create view elearndb.wechat_student_view as
 select elearndb.wechatids.wechat_id,elearndb.students.studentnum,elearndb.students.jwcpassword
 from elearndb.wechatids left join elearndb.students
 on wechatids.user_id = students.user_id;
+go
 
 create view elearndb.wechat_process_view as
 select elearndb.wechatids.wechat_id,elearndb.processes.eword_id,elearndb.processes.part_id
 from elearndb.wechatids left join elearndb.processes
 on wechatids.user_id = processes.user_id;
+go
 
 insert elearndb.parts values('综合教程3','Unit1','Part2');
 

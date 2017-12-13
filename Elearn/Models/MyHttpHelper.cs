@@ -2,7 +2,7 @@
 using System.Net;
 using System.IO;
 
-namespace WeChatMVC.Models
+namespace Elearn.Models
 {
     public class MyHttpHelper
     {
