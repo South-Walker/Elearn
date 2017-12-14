@@ -13,7 +13,7 @@ create table elearndb.wechatids
 (
     user_id int identity(0,1),
     wechat_id varchar(40),
-    followdate datetime DEFAULT getdate(),
+    followdate datetime not null DEFAULT getdate(),
     PRIMARY KEY (user_id)
 );
 create table elearndb.students

@@ -33,12 +33,46 @@ namespace Elearn.Controllers
                 _updatestudents(db, userid, studentnum, jwcpassword);
             }
         }
+        public static string GetStudentNum(string wechatid)
+        {
+            using (var db = new ElearnDBDataContext())
+            {
+                int userid = _trygetuserid(db, wechatid);
+                return _getstudentnum(db, userid);
+            }
+        }
+        public static bool HaveBinding(string wechatid)
+        {
+            using (var db = new ElearnDBDataContext()) 
+            {
+                int userid = _trygetuserid(db, wechatid);
+                return _havebinding(db, userid);
+            }
+        }
+        private static bool _havebinding(ElearnDBDataContext db, int userid)
+        {
+            var student = db.students.Single(studentnow => studentnow.user_id == userid);
+            if (string.IsNullOrEmpty(student.jwcpassword)) 
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        private static string _getstudentnum(ElearnDBDataContext db, int userid)
+        {
+            var student = db.students.Single(studentnow => studentnow.user_id == userid);
+            return student.studentnum;
+        }
         private static void _updatestudents(ElearnDBDataContext db, int userid, string studentnum, string jwcpassword)
         {
             var student = db.students.Single(studentnow => studentnow.user_id == userid);
             if (studentnum != null)
             {
                 student.studentnum = studentnum;
+                student.jwcpassword = null;
             }
             if (jwcpassword != null)
             {
