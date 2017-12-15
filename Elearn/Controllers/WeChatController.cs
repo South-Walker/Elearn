@@ -28,12 +28,8 @@ namespace Elearn.Controllers
                     {
                         case "elearning_wordlearn":
                             return WechatRequest.Get_Reply(WechatRequest.elearning_wordlearn);
-                        case "elearning_wordintensivelearn":
-                            return WechatRequest.Get_Reply(WechatRequest.elearning_wordintensivelearn);
                         case "elearning_textlearn":
                             return WechatRequest.Get_Reply(WechatRequest.elearning_textlearn);
-                        case "elearning_textintensivelearn":
-                            return WechatRequest.Get_Reply(WechatRequest.elearning_textintensivelearn);
                         default:
                             return WechatRequest.Get_Reply("功能还在开发中，敬请期待");
                     }
@@ -71,11 +67,22 @@ namespace Elearn.Controllers
                     }
                     else
                     {
+                        if (Regex.IsMatch(message, "\\d{5,5}"))
+                        {
+                            if (DataBaseController.tryUpdateProcesses(WechatRequest.FromUserName, message))
+                            {
+                                return WechatRequest.Get_Reply("选择成功！按next开始学习");
+                            }
+                            else
+                            {
+                                return WechatRequest.Get_Reply("选择失败，请确认是否绑定学号及输入代码是否正确");
+                            }
+                        }
                         if (!DataBaseController.HaveBinding(WechatRequest.FromUserName)) 
                         {
                             return WechatRequest.Get_Reply(WechatRequest.elearn_welcome);
                         }
-                        switch (WechatRequest.Content)
+                        switch (message)
                         {
                             case "001":
                                 return WechatRequest.Get_Reply(WechatRequest.elearning_testmsg1);

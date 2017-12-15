@@ -48,7 +48,7 @@ namespace Elearn.Models
     #endregion
 		
 		public ElearnDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["bds240792229_dbConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["bds240792229_dbConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -117,19 +117,19 @@ namespace Elearn.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<wechat_process_view> wechat_process_view
-		{
-			get
-			{
-				return this.GetTable<wechat_process_view>();
-			}
-		}
-		
 		public System.Data.Linq.Table<wechat_student_view> wechat_student_view
 		{
 			get
 			{
 				return this.GetTable<wechat_student_view>();
+			}
+		}
+		
+		public System.Data.Linq.Table<wechat_process_view> wechat_process_view
+		{
+			get
+			{
+				return this.GetTable<wechat_process_view>();
 			}
 		}
 	}
@@ -148,7 +148,7 @@ namespace Elearn.Models
 		
 		private string _wordpart;
 		
-		private System.Nullable<int> _part_id;
+		private string _part_code;
 		
 		private EntitySet<processes> _processes;
 		
@@ -166,8 +166,8 @@ namespace Elearn.Models
     partial void OnchineseChanged();
     partial void OnwordpartChanging(string value);
     partial void OnwordpartChanged();
-    partial void Onpart_idChanging(System.Nullable<int> value);
-    partial void Onpart_idChanged();
+    partial void Onpart_codeChanging(string value);
+    partial void Onpart_codeChanged();
     #endregion
 		
 		public ewords()
@@ -257,26 +257,26 @@ namespace Elearn.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_id", DbType="Int")]
-		public System.Nullable<int> part_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_code", DbType="VarChar(5)")]
+		public string part_code
 		{
 			get
 			{
-				return this._part_id;
+				return this._part_code;
 			}
 			set
 			{
-				if ((this._part_id != value))
+				if ((this._part_code != value))
 				{
 					if (this._parts.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.Onpart_idChanging(value);
+					this.Onpart_codeChanging(value);
 					this.SendPropertyChanging();
-					this._part_id = value;
-					this.SendPropertyChanged("part_id");
-					this.Onpart_idChanged();
+					this._part_code = value;
+					this.SendPropertyChanged("part_code");
+					this.Onpart_codeChanged();
 				}
 			}
 		}
@@ -294,7 +294,7 @@ namespace Elearn.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_ewords", Storage="_parts", ThisKey="part_id", OtherKey="part_id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_ewords", Storage="_parts", ThisKey="part_code", OtherKey="part_code", IsForeignKey=true)]
 		public parts parts
 		{
 			get
@@ -317,11 +317,11 @@ namespace Elearn.Models
 					if ((value != null))
 					{
 						value.ewords.Add(this);
-						this._part_id = value.part_id;
+						this._part_code = value.part_code;
 					}
 					else
 					{
-						this._part_id = default(Nullable<int>);
+						this._part_code = default(string);
 					}
 					this.SendPropertyChanged("parts");
 				}
@@ -367,7 +367,7 @@ namespace Elearn.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _part_id;
+		private string _part_code;
 		
 		private string _bookname;
 		
@@ -383,8 +383,8 @@ namespace Elearn.Models
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void Onpart_idChanging(int value);
-    partial void Onpart_idChanged();
+    partial void Onpart_codeChanging(string value);
+    partial void Onpart_codeChanged();
     partial void OnbooknameChanging(string value);
     partial void OnbooknameChanged();
     partial void OnunitnameChanging(string value);
@@ -400,22 +400,22 @@ namespace Elearn.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int part_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_code", DbType="VarChar(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string part_code
 		{
 			get
 			{
-				return this._part_id;
+				return this._part_code;
 			}
 			set
 			{
-				if ((this._part_id != value))
+				if ((this._part_code != value))
 				{
-					this.Onpart_idChanging(value);
+					this.Onpart_codeChanging(value);
 					this.SendPropertyChanging();
-					this._part_id = value;
-					this.SendPropertyChanged("part_id");
-					this.Onpart_idChanged();
+					this._part_code = value;
+					this.SendPropertyChanged("part_code");
+					this.Onpart_codeChanged();
 				}
 			}
 		}
@@ -480,7 +480,7 @@ namespace Elearn.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_ewords", Storage="_ewords", ThisKey="part_id", OtherKey="part_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_ewords", Storage="_ewords", ThisKey="part_code", OtherKey="part_code")]
 		public EntitySet<ewords> ewords
 		{
 			get
@@ -493,7 +493,7 @@ namespace Elearn.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_processes", Storage="_processes", ThisKey="part_id", OtherKey="part_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_processes", Storage="_processes", ThisKey="part_code", OtherKey="part_code")]
 		public EntitySet<processes> processes
 		{
 			get
@@ -561,7 +561,7 @@ namespace Elearn.Models
 		
 		private System.Nullable<int> _eword_id;
 		
-		private System.Nullable<int> _part_id;
+		private string _part_code;
 		
 		private EntityRef<ewords> _ewords;
 		
@@ -577,8 +577,8 @@ namespace Elearn.Models
     partial void Onuser_idChanged();
     partial void Oneword_idChanging(System.Nullable<int> value);
     partial void Oneword_idChanged();
-    partial void Onpart_idChanging(System.Nullable<int> value);
-    partial void Onpart_idChanged();
+    partial void Onpart_codeChanging(string value);
+    partial void Onpart_codeChanged();
     #endregion
 		
 		public processes()
@@ -637,26 +637,26 @@ namespace Elearn.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_id", DbType="Int")]
-		public System.Nullable<int> part_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_code", DbType="VarChar(5)")]
+		public string part_code
 		{
 			get
 			{
-				return this._part_id;
+				return this._part_code;
 			}
 			set
 			{
-				if ((this._part_id != value))
+				if ((this._part_code != value))
 				{
 					if (this._parts.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.Onpart_idChanging(value);
+					this.Onpart_codeChanging(value);
 					this.SendPropertyChanging();
-					this._part_id = value;
-					this.SendPropertyChanged("part_id");
-					this.Onpart_idChanged();
+					this._part_code = value;
+					this.SendPropertyChanged("part_code");
+					this.Onpart_codeChanged();
 				}
 			}
 		}
@@ -695,7 +695,7 @@ namespace Elearn.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_processes", Storage="_parts", ThisKey="part_id", OtherKey="part_id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_processes", Storage="_parts", ThisKey="part_code", OtherKey="part_code", IsForeignKey=true)]
 		public parts parts
 		{
 			get
@@ -718,11 +718,11 @@ namespace Elearn.Models
 					if ((value != null))
 					{
 						value.processes.Add(this);
-						this._part_id = value.part_id;
+						this._part_code = value.part_code;
 					}
 					else
 					{
-						this._part_id = default(Nullable<int>);
+						this._part_code = default(string);
 					}
 					this.SendPropertyChanged("parts");
 				}
@@ -1109,69 +1109,6 @@ namespace Elearn.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.wechat_process_view")]
-	public partial class wechat_process_view
-	{
-		
-		private string _wechat_id;
-		
-		private System.Nullable<int> _eword_id;
-		
-		private System.Nullable<int> _part_id;
-		
-		public wechat_process_view()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_wechat_id", DbType="VarChar(40)")]
-		public string wechat_id
-		{
-			get
-			{
-				return this._wechat_id;
-			}
-			set
-			{
-				if ((this._wechat_id != value))
-				{
-					this._wechat_id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_eword_id", DbType="Int")]
-		public System.Nullable<int> eword_id
-		{
-			get
-			{
-				return this._eword_id;
-			}
-			set
-			{
-				if ((this._eword_id != value))
-				{
-					this._eword_id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_id", DbType="Int")]
-		public System.Nullable<int> part_id
-		{
-			get
-			{
-				return this._part_id;
-			}
-			set
-			{
-				if ((this._part_id != value))
-				{
-					this._part_id = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.wechat_student_view")]
 	public partial class wechat_student_view
 	{
@@ -1230,6 +1167,69 @@ namespace Elearn.Models
 				if ((this._jwcpassword != value))
 				{
 					this._jwcpassword = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.wechat_process_view")]
+	public partial class wechat_process_view
+	{
+		
+		private string _wechat_id;
+		
+		private System.Nullable<int> _eword_id;
+		
+		private string _part_code;
+		
+		public wechat_process_view()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_wechat_id", DbType="VarChar(40)")]
+		public string wechat_id
+		{
+			get
+			{
+				return this._wechat_id;
+			}
+			set
+			{
+				if ((this._wechat_id != value))
+				{
+					this._wechat_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_eword_id", DbType="Int")]
+		public System.Nullable<int> eword_id
+		{
+			get
+			{
+				return this._eword_id;
+			}
+			set
+			{
+				if ((this._eword_id != value))
+				{
+					this._eword_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_code", DbType="VarChar(5)")]
+		public string part_code
+		{
+			get
+			{
+				return this._part_code;
+			}
+			set
+			{
+				if ((this._part_code != value))
+				{
+					this._part_code = value;
 				}
 			}
 		}

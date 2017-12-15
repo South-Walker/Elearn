@@ -49,6 +49,73 @@ namespace Elearn.Controllers
                 return _havebinding(db, userid);
             }
         }
+        public static bool tryUpdateProcesses(string wechatid, string partcode)
+        {
+            using (var db = new ElearnDBDataContext())
+            {
+                int userid = _trygetuserid(db, wechatid);
+                if (!_havebinding(db, userid))
+                {
+                    return false;
+                }
+                int wordid = _getfirstwordofpart(db, partcode);
+                if (wordid == int.MinValue)
+                {
+                    return false;
+                }
+                else
+                {
+                    _updateprocesses(db, userid, partcode, wordid);
+                    return true;
+                }
+            }
+        }
+        /// <summary>
+        /// 如果partcode错误，返回魔值:int.Minvalue
+        /// </summary>
+        /// <param name="partcode"></param>
+        /// <returns></returns>
+        public static int GetFirstWordOfPart(string partcode)
+        {
+            using (var db = new ElearnDBDataContext())
+            {
+                return _getfirstwordofpart(db, partcode);
+            }
+        }
+        /// <summary>
+        /// 如果partcode错误，返回魔值:int.Minvalue
+        /// </summary>
+        /// <param name="partcode"></param>
+        /// <returns></returns>
+        private static int _getfirstwordofpart(ElearnDBDataContext db, string partcode)
+        {
+            var firstwords = db.ewords.Where(word => string.Equals(word.part_code, partcode));
+            foreach (var item in firstwords)
+            {
+                return item.eword_id;
+            }
+            return int.MinValue;
+        }
+        private static void _updateprocesses(ElearnDBDataContext db, int userid, string partcode, int wordid)
+        {
+            var hasexistid = db.processes.SingleOrDefault(user => user.user_id == userid);
+            if (hasexistid == null) 
+            {
+                processes insertone = new processes
+                {
+                    user_id = userid,
+                    part_code = partcode,
+                    eword_id = wordid
+                };
+                db.processes.InsertOnSubmit(insertone);
+            }
+            else
+            {
+                hasexistid.part_code = partcode;
+                hasexistid.eword_id = wordid;
+            }
+            db.SubmitChanges();
+        }
         private static bool _havebinding(ElearnDBDataContext db, int userid)
         {
             var student = db.students.Single(studentnow => studentnow.user_id == userid);
