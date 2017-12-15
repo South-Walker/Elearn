@@ -82,6 +82,81 @@ namespace Elearn.Controllers
                 return _getfirstwordofpart(db, partcode);
             }
         }
+        public static bool HaveProcess(string wechatid)
+        {
+            using (var db = new ElearnDBDataContext()) 
+            {
+                int userid = _trygetuserid(db, wechatid);
+                return _haveprocess(db, userid);
+            }
+        }
+        public static string GetNextWord(int userid, string partcode, int? wordid)
+        {
+            using (var db = new ElearnDBDataContext())
+            {
+                ewords nextword = null;
+                if (_haveprocess(db, userid))
+                {
+                    nextword = _getnextword(db, partcode, wordid);
+                    if (nextword == null)
+                        return null;
+                    else
+                    {
+                        _updateprocesses(db, userid, partcode, nextword.eword_id);
+                        return nextword.eword;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        public static string GetNextWord(string wechatid)
+        {
+            using (var db = new ElearnDBDataContext())
+            {
+                int userid = _trygetuserid(db, wechatid);
+                var process = _getaprocess(db, userid);
+                if (process == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return GetNextWord(userid, process.part_code, process.eword_id.Value);
+                }
+            }
+        }
+        private static processes _getaprocess(ElearnDBDataContext db, int userid)
+        {
+            return db.processes.SingleOrDefault(thisprocess => thisprocess.user_id == userid);
+        }
+        private static ewords _getnextword(ElearnDBDataContext db, string partcode, int? wordid)
+        {
+            var words = db.ewords.Where(word => string.Equals(word.part_code, partcode));
+            bool isgetnow = false;
+            foreach (var item in words)
+            {
+                if (isgetnow)
+                    return item;
+                if (item.eword_id == wordid)
+                    isgetnow = true;
+            }
+            return null;
+        }
+        private static bool _haveprocess(ElearnDBDataContext db, int userid)
+        {
+            var process = db.processes.SingleOrDefault(user => user.user_id == userid);
+            if (process != null && process.eword_id != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         /// <summary>
         /// 如果partcode错误，返回魔值:int.Minvalue
         /// </summary>

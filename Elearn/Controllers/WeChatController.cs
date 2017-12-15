@@ -30,6 +30,12 @@ namespace Elearn.Controllers
                             return WechatRequest.Get_Reply(WechatRequest.elearning_wordlearn);
                         case "elearning_textlearn":
                             return WechatRequest.Get_Reply(WechatRequest.elearning_textlearn);
+                        case "elearning_nextword":
+                            string nextword = DataBaseController.GetNextWord(WechatRequest.FromUserName);
+                            if (nextword != null)
+                                return WechatRequest.Get_Reply(nextword);
+                            else
+                                return WechatRequest.Get_Reply("当前未设立测试范围或已经学习完全部内容");
                         default:
                             return WechatRequest.Get_Reply("功能还在开发中，敬请期待");
                     }
