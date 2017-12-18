@@ -1,34 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="bds240792229_db" Class="ElearnDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=bds240792229.my3w.com;Initial Catalog=bds240792229_db;Persist Security Info=True;User ID=bds240792229" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="bds240792229_dbConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="elearndb.ewords" Member="ewords">
-    <Type Name="ewords">
-      <Column Name="eword_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="eword" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="chinese" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
-      <Column Name="wordpart" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="part_code" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
-      <Association Name="ewords_processes" Member="processes" ThisKey="eword_id" OtherKey="eword_id" Type="processes" />
-      <Association Name="parts_ewords" Member="parts" ThisKey="part_code" OtherKey="part_code" Type="parts" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="elearndb.parts" Member="parts">
-    <Type Name="parts">
-      <Column Name="part_code" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="bookname" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="unitname" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="partname" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Association Name="parts_ewords" Member="ewords" ThisKey="part_code" OtherKey="part_code" Type="ewords" />
-      <Association Name="parts_processes" Member="processes" ThisKey="part_code" OtherKey="part_code" Type="processes" />
-    </Type>
-  </Table>
-  <Table Name="elearndb.processes" Member="processes">
-    <Type Name="processes">
-      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="eword_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="part_code" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
-      <Association Name="ewords_processes" Member="ewords" ThisKey="eword_id" OtherKey="eword_id" Type="ewords" IsForeignKey="true" />
-      <Association Name="parts_processes" Member="parts" ThisKey="part_code" OtherKey="part_code" Type="parts" IsForeignKey="true" />
-      <Association Name="students_processes" Member="students" ThisKey="user_id" OtherKey="user_id" Type="students" IsForeignKey="true" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=bds240792229.my3w.com;Initial Catalog=bds240792229_db;User ID=bds240792229" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="bds240792229_dbConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="elearndb.wechatids" Member="wechatids">
+    <Type Name="wechatids">
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="wechat_id" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="followdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="wechatids_students" Member="students" ThisKey="user_id" OtherKey="user_id" Type="students" Cardinality="One" />
     </Type>
   </Table>
   <Table Name="elearndb.students" Member="students">
@@ -40,12 +17,36 @@
       <Association Name="wechatids_students" Member="wechatids" ThisKey="user_id" OtherKey="user_id" Type="wechatids" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="elearndb.wechatids" Member="wechatids">
-    <Type Name="wechatids">
-      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="wechat_id" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
-      <Column Name="followdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="wechatids_students" Member="students" ThisKey="user_id" OtherKey="user_id" Type="students" Cardinality="One" />
+  <Table Name="elearndb.processes" Member="processes">
+    <Type Name="processes">
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="eword_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="part_code" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="process_index" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="students_processes" Member="students" ThisKey="user_id" OtherKey="user_id" Type="students" IsForeignKey="true" />
+      <Association Name="parts_processes" Member="parts" ThisKey="part_code" OtherKey="part_code" Type="parts" IsForeignKey="true" />
+      <Association Name="ewords_processes" Member="ewords" ThisKey="eword_id" OtherKey="eword_id" Type="ewords" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="elearndb.parts" Member="parts">
+    <Type Name="parts">
+      <Column Name="part_code" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="bookname" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="unitname" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="partname" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="parts_processes" Member="processes" ThisKey="part_code" OtherKey="part_code" Type="processes" />
+      <Association Name="parts_ewords" Member="ewords" ThisKey="part_code" OtherKey="part_code" Type="ewords" />
+    </Type>
+  </Table>
+  <Table Name="elearndb.ewords" Member="ewords">
+    <Type Name="ewords">
+      <Column Name="eword_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="eword" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="chinese" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="wordpart" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="part_code" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="ewords_processes" Member="processes" ThisKey="eword_id" OtherKey="eword_id" Type="processes" />
+      <Association Name="parts_ewords" Member="parts" ThisKey="part_code" OtherKey="part_code" Type="parts" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="elearndb.wechat_student_view" Member="wechat_student_view">

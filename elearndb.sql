@@ -43,11 +43,18 @@ create table elearndb.ewords
     PRIMARY KEY (eword_id),
     foreign KEY (part_code) references elearndb.parts(part_code)
 );
+create table elearndb.sentences
+(
+    eword_id int,
+    sentence text,
+    foreign KEY(eword_id) references elearndb.ewords(eword_id)
+);
 create table elearndb.processes
 (
     user_id int,
     eword_id int,
     part_code varchar(5),
+    process_index int,
     PRIMARY KEY (user_id),
     foreign key (user_id) references elearndb.students(user_id),
     foreign key (eword_id) references elearndb.ewords(eword_id),
@@ -62,7 +69,7 @@ as
     declare @user_id int;
     select @user_id = user_id from inserted;
     insert students values (@user_id,null,null);
-    insert processes values (@user_id,null,null);
+    insert processes values (@user_id,null,null,null);
 go
 
 create view elearndb.wechat_student_view as
@@ -163,3 +170,10 @@ insert elearndb.ewords values('profit','得益；收益，利润','n.','00111');
 insert elearndb.ewords values('invest','投资','v.','00111');
 insert elearndb.ewords values('economic','经济学的；经济（方面）的','adj.','00111');
 insert elearndb.ewords values('old-fashioned','过时的，老式的；守旧的','adj.','00111');
+
+
+insert elearndb.sentences values(0,'Frustration And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
+insert elearndb.sentences values(1,'suburban And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
+insert elearndb.sentences values(2,'contentment And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
+insert elearndb.sentences values(3,'Our bees provide us with honey, and we cut enough wood to just about make it through the heating season.');
+insert elearndb.sentences values(4,'In the summer, we canoe on the river, go picking in the woods, and take long bicycle rides.');

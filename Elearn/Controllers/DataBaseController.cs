@@ -65,7 +65,7 @@ namespace Elearn.Controllers
                 }
                 else
                 {
-                    _updateprocesses(db, userid, partcode, wordid);
+                    _updateprocesses(db, userid, partcode, wordid, 0);
                     return true;
                 }
             }
@@ -90,19 +90,19 @@ namespace Elearn.Controllers
                 return _haveprocess(db, userid);
             }
         }
-        public static string GetNextWord(int userid, string partcode, int? wordid)
+        public static string GetNextWord(int userid, processes process)
         {
             using (var db = new ElearnDBDataContext())
             {
                 ewords nextword = null;
                 if (_haveprocess(db, userid))
                 {
-                    nextword = _getnextword(db, partcode, wordid);
+                    nextword = _getnextword(db, process.part_code, process.eword_id);
                     if (nextword == null)
                         return null;
                     else
                     {
-                        _updateprocesses(db, userid, partcode, nextword.eword_id);
+                        _updateprocesses(db, userid, process.part_code, nextword.eword_id, process.process_index + 1);
                         return nextword.eword;
                     }
                 }
@@ -124,7 +124,11 @@ namespace Elearn.Controllers
                 }
                 else
                 {
-                    return GetNextWord(userid, process.part_code, process.eword_id.Value);
+                    if (process.process_index != 0 && process.process_index % 5 == 0)
+                    {
+                        return "请按巩固训练开始做题,否则不能继续生词学习";
+                    }
+                    return GetNextWord(userid, process);
                 }
             }
         }
@@ -171,8 +175,9 @@ namespace Elearn.Controllers
             }
             return int.MinValue;
         }
-        private static void _updateprocesses(ElearnDBDataContext db, int userid, string partcode, int wordid)
+        private static void _updateprocesses(ElearnDBDataContext db, int userid, string partcode, int wordid, int? index)
         {
+            index = index ?? 0;
             var hasexistid = db.processes.SingleOrDefault(user => user.user_id == userid);
             if (hasexistid == null) 
             {
@@ -180,7 +185,8 @@ namespace Elearn.Controllers
                 {
                     user_id = userid,
                     part_code = partcode,
-                    eword_id = wordid
+                    eword_id = wordid,
+                    process_index = index
                 };
                 db.processes.InsertOnSubmit(insertone);
             }
@@ -188,6 +194,7 @@ namespace Elearn.Controllers
             {
                 hasexistid.part_code = partcode;
                 hasexistid.eword_id = wordid;
+                hasexistid.process_index = index;
             }
             db.SubmitChanges();
         }
