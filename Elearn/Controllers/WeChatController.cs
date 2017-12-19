@@ -3,6 +3,7 @@ using System.Web.Security;
 using Elearn.Controllers;
 using Elearn.Models;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace Elearn.Controllers
 {

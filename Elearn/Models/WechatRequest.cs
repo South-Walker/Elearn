@@ -178,6 +178,16 @@ namespace Elearn.Models
             "]]></MediaId></Image></xml>";
             return reply;
         }
+        public string Get_Voice(string mediaid)
+        {
+            string reply = "<xml><ToUserName><![CDATA[" + FromUserName +
+                "]]></ToUserName><FromUserName>< ![CDATA[" + ToUserName +
+                "]]></FromUserName><CreateTime>" + ConvertDateTimeInt(DateTime.Now)
+                + "</CreateTime><MsgType><![CDATA[" + "voice" +
+                "]]></MsgType><Voice><MediaId><![CDATA[" + mediaid +
+                "]]></MediaId></Voice></xml>";
+            return reply;
+        }
         public static int ConvertDateTimeInt(DateTime time)
         {
             DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));

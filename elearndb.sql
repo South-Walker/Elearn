@@ -2,6 +2,7 @@
 drop view elearndb.wechat_process_view;
 drop view elearndb.wechat_student_view;
 drop table elearndb.processes;
+drop table elearndb.sentences;
 drop table elearndb.ewords;
 drop table elearndb.parts;
 drop table elearndb.students;
@@ -86,6 +87,7 @@ go
 
 insert elearndb.parts values('00111','综合教程3','Unit1','Part2');
 
+insert elearndb.ewords values('first','1','n.','00111');
 insert elearndb.ewords values('frustration','挫折；令人失望','n.','00111');
 insert elearndb.ewords values('suburban','郊外的，郊区的','adj.','00111');
 insert elearndb.ewords values('contentment','知足，满足','n.','00111');
@@ -95,7 +97,7 @@ insert elearndb.ewords values('canoe','划（或乘）独木舟','v.','00111');
 insert elearndb.ewords values('ski','滑雪','vi.','00111');
 insert elearndb.ewords values('low','（牛）哞哞叫','n.','00111');
 insert elearndb.ewords values('hawk','鹰','n.','00111');
-insert elearndb.ewords values('corn','玉米田','n.','00111');
+insert elearndb.ewords values('cornfield','玉米田','n.','00111');
 insert elearndb.ewords values('haul','（用卡车、马车等)搬运','vt.','00111');
 insert elearndb.ewords values('firewood','木柴','n.','00111');
 insert elearndb.ewords values('sled','雪橇','n.','00111');
@@ -172,8 +174,12 @@ insert elearndb.ewords values('economic','经济学的；经济（方面）的',
 insert elearndb.ewords values('old-fashioned','过时的，老式的；守旧的','adj.','00111');
 
 
-insert elearndb.sentences values(0,'Frustration And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
-insert elearndb.sentences values(1,'suburban And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
-insert elearndb.sentences values(2,'contentment And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
-insert elearndb.sentences values(3,'Our bees provide us with honey, and we cut enough wood to just about make it through the heating season.');
-insert elearndb.sentences values(4,'In the summer, we canoe on the river, go picking in the woods, and take long bicycle rides.');
+insert elearndb.sentences values(1,'And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
+insert elearndb.sentences values(2,'And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
+insert elearndb.sentences values(3,'And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
+insert elearndb.sentences values(4,'Our bees provide us with honey, and we cut enough wood to just about make it through the heating season.');
+insert elearndb.sentences values(5,'In the summer, we canoe on the river, go picking in the woods, and take long bicycle rides.');
+insert elearndb.sentences values(6,'In the winter, we ski and skate, we get excited about sunsets.');
+insert elearndb.sentences values(7,'We love the smell of the earth warming and the sound of cattle lowing.');
+insert elearndb.sentences values(8,'hawk We watch for hawks in the sky and deer in the cornfields.');
+insert elearndb.sentences values(9,'cornfield We watch for hawks in the sky and deer in the cornfields.');

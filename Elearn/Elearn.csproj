@@ -109,6 +109,7 @@
     <Compile Include="Models\JWCHttpHelper.cs" />
     <Compile Include="Models\MyHttpHelper.cs" />
     <Compile Include="Models\StudentInfo.cs" />
+    <Compile Include="Models\WeChatHttpHelper.cs" />
     <Compile Include="Models\WechatRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

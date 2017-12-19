@@ -132,6 +132,14 @@ namespace Elearn.Models
 				return this.GetTable<wechat_process_view>();
 			}
 		}
+		
+		public System.Data.Linq.Table<sentences> sentences
+		{
+			get
+			{
+				return this.GetTable<sentences>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.wechatids")]
@@ -1254,6 +1262,51 @@ namespace Elearn.Models
 				if ((this._part_code != value))
 				{
 					this._part_code = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.sentences")]
+	public partial class sentences
+	{
+		
+		private System.Nullable<int> _eword_id;
+		
+		private string _sentence;
+		
+		public sentences()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_eword_id", DbType="Int")]
+		public System.Nullable<int> eword_id
+		{
+			get
+			{
+				return this._eword_id;
+			}
+			set
+			{
+				if ((this._eword_id != value))
+				{
+					this._eword_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sentence", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string sentence
+		{
+			get
+			{
+				return this._sentence;
+			}
+			set
+			{
+				if ((this._sentence != value))
+				{
+					this._sentence = value;
 				}
 			}
 		}

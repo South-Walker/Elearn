@@ -46,6 +46,7 @@
       <Column Name="wordpart" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="part_code" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
       <Association Name="ewords_processes" Member="processes" ThisKey="eword_id" OtherKey="eword_id" Type="processes" />
+      <Association Name="ewords_sentences" Member="sentences" ThisKey="eword_id" OtherKey="eword_id" Type="sentences" />
       <Association Name="parts_ewords" Member="parts" ThisKey="part_code" OtherKey="part_code" Type="parts" IsForeignKey="true" />
     </Type>
   </Table>
@@ -61,6 +62,13 @@
       <Column Name="wechat_id" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
       <Column Name="eword_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="part_code" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="elearndb.sentences" Member="sentences">
+    <Type Name="sentences">
+      <Column Name="eword_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sentence" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="ewords_sentences" Member="ewords" ThisKey="eword_id" OtherKey="eword_id" Type="ewords" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

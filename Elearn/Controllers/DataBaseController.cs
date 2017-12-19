@@ -90,7 +90,7 @@ namespace Elearn.Controllers
                 return _haveprocess(db, userid);
             }
         }
-        public static string GetNextWord(int userid, processes process)
+        public static ewords GetNextWord(int userid, processes process)
         {
             using (var db = new ElearnDBDataContext())
             {
@@ -103,7 +103,7 @@ namespace Elearn.Controllers
                     else
                     {
                         _updateprocesses(db, userid, process.part_code, nextword.eword_id, process.process_index + 1);
-                        return nextword.eword;
+                        return nextword;
                     }
                 }
                 else
@@ -126,9 +126,13 @@ namespace Elearn.Controllers
                 {
                     if (process.process_index != 0 && process.process_index % 5 == 0)
                     {
-                        return "请按巩固训练开始做题,否则不能继续生词学习";
+                        return null;
                     }
-                    return GetNextWord(userid, process);
+                    var result = GetNextWord(userid, process);
+                    if (result == null)
+                        return null;
+                    else
+                        return result.eword + ":" + result.chinese + "\r\n" + _getexamplesentence(db, result);
                 }
             }
         }
@@ -259,6 +263,11 @@ namespace Elearn.Controllers
                 db.wechatids.InsertOnSubmit(insertone);
                 db.SubmitChanges();
             }
+        }
+        private static string _getexamplesentence(ElearnDBDataContext db, ewords word)
+        {
+            var sentence = db.sentences.SingleOrDefault(sen => sen.eword_id == word.eword_id);
+            return sentence.sentence;
         }
     }
 }
