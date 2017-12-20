@@ -21,7 +21,7 @@ namespace Elearn.Controllers
             int result = 0;
             using (var db = new ElearnDBDataContext())
             {
-                result = _trygetuserid(db, wechatid);
+                result = _getuserid(db, wechatid);
             }
             return result;
         }
@@ -29,7 +29,7 @@ namespace Elearn.Controllers
         {
             using (var db = new ElearnDBDataContext())
             {
-                int userid = _trygetuserid(db, wechatid);
+                int userid = _getuserid(db, wechatid);
                 _updatestudents(db, userid, studentnum, jwcpassword);
             }
         }
@@ -37,7 +37,7 @@ namespace Elearn.Controllers
         {
             using (var db = new ElearnDBDataContext())
             {
-                int userid = _trygetuserid(db, wechatid);
+                int userid = _getuserid(db, wechatid);
                 return _getstudentnum(db, userid);
             }
         }
@@ -45,7 +45,7 @@ namespace Elearn.Controllers
         {
             using (var db = new ElearnDBDataContext()) 
             {
-                int userid = _trygetuserid(db, wechatid);
+                int userid = _getuserid(db, wechatid);
                 return _havebinding(db, userid);
             }
         }
@@ -53,7 +53,7 @@ namespace Elearn.Controllers
         {
             using (var db = new ElearnDBDataContext())
             {
-                int userid = _trygetuserid(db, wechatid);
+                int userid = _getuserid(db, wechatid);
                 if (!_havebinding(db, userid))
                 {
                     return false;
@@ -86,7 +86,7 @@ namespace Elearn.Controllers
         {
             using (var db = new ElearnDBDataContext()) 
             {
-                int userid = _trygetuserid(db, wechatid);
+                int userid = _getuserid(db, wechatid);
                 return _haveprocess(db, userid);
             }
         }
@@ -116,7 +116,7 @@ namespace Elearn.Controllers
         {
             using (var db = new ElearnDBDataContext())
             {
-                int userid = _trygetuserid(db, wechatid);
+                int userid = _getuserid(db, wechatid);
                 var process = _getaprocess(db, userid);
                 if (process == null)
                 {
@@ -134,6 +134,32 @@ namespace Elearn.Controllers
                     else
                         return result.eword + ":" + result.chinese + "\r\n" + _getexamplesentence(db, result);
                 }
+            }
+        }
+        public static string GetNowWord(string wechatid)
+        {
+            using (var db = new ElearnDBDataContext()) 
+            {
+                int userid = _getuserid(db, wechatid);
+                return _getnowword(db, userid);
+            }
+        }
+        public static string _getnowword(ElearnDBDataContext db, int userid)
+        {
+            var process = _getaprocess(db, userid);
+            if (process != null && process.eword_id != null) 
+            {
+                var words = db.ewords.Where(word => string.Equals(word.part_code, process.part_code));
+                foreach (var item in words)
+                {
+                    if (item.eword_id == process.eword_id)
+                        return item.eword; 
+                }
+                return null;
+            }
+            else
+            {
+                return null;
             }
         }
         private static processes _getaprocess(ElearnDBDataContext db, int userid)
@@ -233,7 +259,7 @@ namespace Elearn.Controllers
             }
             db.SubmitChanges();
         }
-        private static int _trygetuserid(ElearnDBDataContext db, string wechatid)
+        private static int _getuserid(ElearnDBDataContext db, string wechatid)
         {
             var hasexistid = db.wechatids.SingleOrDefault(wc => wc.wechat_id == wechatid);
             if (hasexistid == null) 
@@ -244,7 +270,7 @@ namespace Elearn.Controllers
                 };
                 db.wechatids.InsertOnSubmit(insertone);
                 db.SubmitChanges();
-                return _trygetuserid(db, wechatid);
+                return _getuserid(db, wechatid);
             }
             else
             {

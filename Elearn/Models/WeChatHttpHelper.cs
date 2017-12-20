@@ -63,7 +63,6 @@ namespace Elearn.Models
             foot.CopyTo(all, head.Length + body.Length);
             one.HttpPost(all);
             string html = one.ToString();
-            return html;
             Regex regex = new Regex("\"media_id\":\"(?<id>[^\"]*)\"");
             Match m = regex.Match(html);
             return m.Groups["id"].Value;

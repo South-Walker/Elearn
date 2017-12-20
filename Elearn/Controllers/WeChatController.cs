@@ -20,8 +20,8 @@ namespace Elearn.Controllers
             }
             if (IsFromTencent("961016") && Request.HttpMethod == "POST")
             {
-                #region wechatpost
                 WechatRequest = new WechatRequest(Request.InputStream);
+                #region wechatpost
                 if (WechatRequest.IsClick())
                 {
                     #region ButtonEvent
@@ -95,6 +95,15 @@ namespace Elearn.Controllers
                                 return WechatRequest.Get_Reply(WechatRequest.elearning_testmsg1);
                             case "0011":
                                 return WechatRequest.Get_Reply(WechatRequest.elearning_testmsg2);
+                            case "speak":
+                                string word = DataBaseController.GetNowWord(WechatRequest.FromUserName);
+                                if (word == null)
+                                {
+                                    return WechatRequest.Get_Reply("请先选择学习内容");
+                                }
+                                WeChatHttpHelper.GetToken();
+                                string mediaid = WeChatHttpHelper.GetMediaID(SpeecherController.mytts("读音:" + word), "voice");
+                                return WechatRequest.Get_Voice(mediaid);
                             default:
                                 return WechatRequest.Get_Reply("识别错误，请重试");
                         }
