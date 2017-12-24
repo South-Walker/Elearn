@@ -292,7 +292,7 @@ namespace Elearn.Controllers
         }
         private static string _getexamplesentence(ElearnDBDataContext db, ewords word)
         {
-            var sentence = db.sentences.SingleOrDefault(sen => sen.eword_id == word.eword_id);
+            var sentence = db.sentences.FirstOrDefault(sen => sen.eword_id == word.eword_id);
             return sentence.sentence;
         }
     }

@@ -46,8 +46,11 @@ create table elearndb.ewords
 );
 create table elearndb.sentences
 (
+    sentence_id int identity(0,1),
     eword_id int,
     sentence text,
+    chinese text,
+    PRIMARY KEY (sentence_id),
     foreign KEY(eword_id) references elearndb.ewords(eword_id)
 );
 create table elearndb.processes
