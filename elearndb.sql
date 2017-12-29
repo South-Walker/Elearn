@@ -7,10 +7,18 @@ drop table elearndb.ewords;
 drop table elearndb.parts;
 drop table elearndb.students;
 drop table elearndb.wechatids;
+drop table elearndb.oralsentences;
 drop schema elearndb;
 go
 create schema elearndb
 go
+create table elearndb.oralsentences
+(
+    oralsentence_id int identity(0,1),
+    sentence text,
+    chinese text,
+    PRIMARY KEY (oralsentence_id)
+);
 create table elearndb.wechatids
 (
     user_id int identity(0,1),
@@ -56,10 +64,12 @@ create table elearndb.sentences
 create table elearndb.processes
 (
     user_id int,
+    oralsentence_id int,
     eword_id int,
     part_code varchar(5),
     process_index int,
     PRIMARY KEY (user_id),
+    foreign key (oralsentence_id) references elearndb.oralsentences(oralsentence_id),
     foreign key (user_id) references elearndb.students(user_id),
     foreign key (eword_id) references elearndb.ewords(eword_id),
     foreign key (part_code) references elearndb.parts(part_code)
@@ -73,7 +83,7 @@ as
     declare @user_id int;
     select @user_id = user_id from inserted;
     insert students values (@user_id,null,null);
-    insert processes values (@user_id,null,null,null);
+    insert processes values (@user_id,null,null,null,null);
 go
 
 create view elearndb.wechat_student_view as
@@ -87,6 +97,7 @@ select elearndb.wechatids.wechat_id,elearndb.processes.eword_id,elearndb.process
 from elearndb.wechatids left join elearndb.processes
 on wechatids.user_id = processes.user_id;
 go
+insert elearndb.oralsentences values('It was two weeks before the Spring Festival and the shopping centre was crowded with shoppers.','给个中文');
 
 insert elearndb.parts values('00111','综合教程3','Unit1','Part2');
 
@@ -175,7 +186,7 @@ insert elearndb.ewords values('profit','得益；收益，利润','n.','00111');
 insert elearndb.ewords values('invest','投资','v.','00111');
 insert elearndb.ewords values('economic','经济学的；经济（方面）的','adj.','00111');
 insert elearndb.ewords values('old-fashioned','过时的，老式的；守旧的','adj.','00111');
-
+/*
 
 insert elearndb.sentences values(1,'And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
 insert elearndb.sentences values(2,'And after years of frustration with city and suburban living, my wife Sandy and I have finally found contentment here in the country');
@@ -186,3 +197,4 @@ insert elearndb.sentences values(6,'In the winter, we ski and skate, we get exci
 insert elearndb.sentences values(7,'We love the smell of the earth warming and the sound of cattle lowing.');
 insert elearndb.sentences values(8,'hawk We watch for hawks in the sky and deer in the cornfields.');
 insert elearndb.sentences values(9,'cornfield We watch for hawks in the sky and deer in the cornfields.');
+*/

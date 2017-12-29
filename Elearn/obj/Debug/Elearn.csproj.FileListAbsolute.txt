@@ -40,3 +40,4 @@ C:\Users\Administrator\Desktop\Elearn\Elearn\bin\AipSdk.dll
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\Newtonsoft.Json.dll
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\AipSdk.xml
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\Newtonsoft.Json.xml
+C:\Users\Administrator\Desktop\Elearn\Elearn\obj\Debug\Elearn.csprojResolveAssemblyReference.cache

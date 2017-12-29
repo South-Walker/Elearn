@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Security;
 using Elearn.Controllers;
+using System.Threading;
+using System.Collections.Generic;
 using Elearn.Models;
 using System.Text.RegularExpressions;
 using System.IO;
@@ -37,6 +39,8 @@ namespace Elearn.Controllers
                                 return WechatRequest.Get_Reply(nextword);
                             else
                                 return WechatRequest.Get_Reply("当前未设立测试范围或已经学习完全部内容");
+                        case "elearning_oraltrain":
+                            return WechatRequest.Get_Reply("It was two weeks before the Spring Festival and the shopping centre was crowded with shoppers.");
                         default:
                             return WechatRequest.Get_Reply("功能还在开发中，敬请期待");
                     }
@@ -47,6 +51,14 @@ namespace Elearn.Controllers
                     #region FollowEvent
                     DataBaseController.AddIntoWechatIds(WechatRequest.FromUserName);
                     return WechatRequest.Get_Reply(WechatRequest.elearn_welcome);
+                    #endregion
+                }
+                else if (WechatRequest.IsVoice())
+                {
+                    #region VoiceEvent
+                    Thread t = new Thread(new ThreadStart(task_voicemanager));
+                    t.Start();
+                    return WechatRequest.Get_Reply("提交成功，请等待一段时间后输入Get查看结果！");
                     #endregion
                 }
                 else
@@ -85,7 +97,7 @@ namespace Elearn.Controllers
                                 return WechatRequest.Get_Reply("选择失败，请确认是否绑定学号及输入代码是否正确");
                             }
                         }
-                        if (!DataBaseController.HaveBinding(WechatRequest.FromUserName)) 
+                        if (!DataBaseController.HaveBinding(WechatRequest.FromUserName))
                         {
                             return WechatRequest.Get_Reply(WechatRequest.elearn_welcome);
                         }
@@ -104,6 +116,13 @@ namespace Elearn.Controllers
                                 WeChatHttpHelper.GetToken();
                                 string mediaid = WeChatHttpHelper.GetMediaID(SpeecherController.mytts("读音:" + word), "voice");
                                 return WechatRequest.Get_Voice(mediaid);
+                            case "Get":
+                                string path = @"C:\Users\Administrator\Desktop\ElearnOralResult\" + WechatRequest.FromUserName + "\\result.txt";
+                                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                                {
+                                    StreamReader sr = new StreamReader(fs);
+                                    return WechatRequest.Get_Reply(sr.ReadToEnd());
+                                }
                             default:
                                 return WechatRequest.Get_Reply("识别错误，请重试");
                         }
@@ -117,7 +136,6 @@ namespace Elearn.Controllers
                 return "Do not touch this server,guy!";
             }
         }
-
         public bool IsFromTencent(string thistoken)
         {
             var signature = Request["signature"];
@@ -138,5 +156,32 @@ namespace Elearn.Controllers
                 return false;
             }
         }//信息来源是腾讯才会返回true
+        private void task_voicemanager()
+        {
+            try
+            {
+                WeChatHttpHelper.GetToken();
+                var bytelist = WeChatHttpHelper.DownloadMedia("VD6mF5P0s-Jsu0puLoUAEYuMQQDlQ5nf8xjWzUJ__8X_Q9E8a9gkWBdBIRsvcuk8");
+                using (ISEServerAgent agent = new ISEServerAgent())
+                {
+                    agent.Login(System.Web.Configuration.WebConfigurationManager.AppSettings["iflytekKey"]);
+                    if (agent.errorCode != (int)ErrorCode.MSP_SUCCESS)
+                    {
+                        WechatRequest.Save_log("\r\n" + agent.errorCode);
+                        return;
+                    }
+                    agent.TextPut("[content]\r\nIt was two weeks before the Spring Festival and the shopping centre was crowded with shoppers.\r\n");
+                    agent.AudioWrite(bytelist);
+                    string path = @"C:\Users\Administrator\Desktop\ElearnOralResult\" + WechatRequest.FromUserName;
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    agent.GetAndSaveAnswer(path + "\\result.txt");
+                }
+            }
+            catch (Exception e)
+            {
+                WechatRequest.Save_log(e.ToString());
+            }
+        }
     }
 }

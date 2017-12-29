@@ -14,6 +14,7 @@ namespace Elearn.Models
         /*
          * 所有Get.*_Relpy的函数，都返回直接能回复的xml格式字符
          */
+        public string Format = "";
         public string Event = "";
         public string EventKey = "";
         public string ToUserName = "";
@@ -99,6 +100,11 @@ namespace Elearn.Models
                 MediaId = xe.SelectSingleNode("MediaId").InnerText;
                 PicUrl = xe.SelectSingleNode("PicUrl").InnerText;
             }
+            else if (MsgType == "voice")
+            {
+                MediaId = xe.SelectSingleNode("MediaId").InnerText;
+                Format = xe.SelectSingleNode("Format").InnerText;
+            }
             else if (MsgType == "event")
             {
                 Event = xe.SelectSingleNode("Event").InnerText + "";
@@ -124,6 +130,10 @@ namespace Elearn.Models
             if (Event == "" || Event == null)
                 return false;
             return Event == "CLICK";
+        }
+        public bool IsVoice()
+        {
+            return MsgType == "voice";
         }
         public string Get_MJ_Reply(DateTime buyday, DateTime ticketday, string origination, string destination)
         {

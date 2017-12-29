@@ -15,6 +15,7 @@ namespace Elearn.Models
         private const string appsecert = "77c0f9d24fd9c63c28aadf6f05d04311";
         public static string Token = "";
         public const string TokenAPI = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
+        public const string MediaDownloadAPI = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}";
         public const string MediaUploadAPI = "http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}";
         public WeChatHttpHelper(string url) :
             base(url)
@@ -33,6 +34,10 @@ namespace Elearn.Models
             Regex regex = new Regex("\"access_token\":\"(?<accesstoken>[^\"]*)\"");
             Match m = regex.Match(one.ToString());
             Token = m.Groups["accesstoken"].Value;
+            if (string.IsNullOrEmpty(Token))
+            {
+                throw new Exception();
+            }
         }
         public static string GetMediaID(Stream fs, string type = "image")
         {
@@ -66,6 +71,26 @@ namespace Elearn.Models
             Regex regex = new Regex("\"media_id\":\"(?<id>[^\"]*)\"");
             Match m = regex.Match(html);
             return m.Groups["id"].Value;
+        }
+        public static List<byte> DownloadMedia(string mediaid)
+        {
+            if (string.IsNullOrEmpty(Token))
+            {
+                throw new Exception();
+            }
+            string url = string.Format(MediaDownloadAPI, Token, mediaid);
+            HttpWebRequest hwr = WebRequest.CreateHttp(url);
+            using (HttpWebResponse hwro = (HttpWebResponse)hwr.GetResponse())
+            {
+                Stream svoice = hwro.GetResponseStream(); 
+                int bytenow = 0;
+                List<byte> bytelist = new List<byte>();
+                while (-1 != (bytenow = svoice.ReadByte()))
+                {
+                    bytelist.Add((byte)bytenow);
+                }
+                return bytelist;
+            }
         }
     }
 }
