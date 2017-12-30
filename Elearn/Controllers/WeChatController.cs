@@ -117,7 +117,7 @@ namespace Elearn.Controllers
                                 string mediaid = WeChatHttpHelper.GetMediaID(SpeecherController.mytts("读音:" + word), "voice");
                                 return WechatRequest.Get_Voice(mediaid);
                             case "Get":
-                                string path = @"C:\Users\Administrator\Desktop\ElearnOralResult\" + WechatRequest.FromUserName + "\\result.txt";
+                                string path = $@"C:\Users\Administrator\Desktop\ElearnOralResult\{WechatRequest.FromUserName}\result.txt";
                                 using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
                                 {
                                     StreamReader sr = new StreamReader(fs);
@@ -160,8 +160,21 @@ namespace Elearn.Controllers
         {
             try
             {
+                string path = @"C:\Users\Administrator\Desktop\ElearnOralResult\" + WechatRequest.FromUserName;
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
                 WeChatHttpHelper.GetToken();
-                var bytelist = WeChatHttpHelper.DownloadMedia("VD6mF5P0s-Jsu0puLoUAEYuMQQDlQ5nf8xjWzUJ__8X_Q9E8a9gkWBdBIRsvcuk8");
+                var bytelist = WeChatHttpHelper.DownloadMedia(WechatRequest.MediaId);
+                using (FileStream fs = new FileStream(path + @"\0.amr", FileMode.Create, FileAccess.Write))
+                {
+                    foreach (var abyte in bytelist)
+                    {
+                        fs.WriteByte(abyte);
+                    }
+                    fs.Flush();
+                }
+                ISEServerAgent.ConvertVideo(path + @"\0.amr");
+                using (FileStream fs = new FileStream(path + @"\0.wav", FileMode.Open, FileAccess.Read)) 
                 using (ISEServerAgent agent = new ISEServerAgent())
                 {
                     agent.Login(System.Web.Configuration.WebConfigurationManager.AppSettings["iflytekKey"]);
@@ -171,11 +184,8 @@ namespace Elearn.Controllers
                         return;
                     }
                     agent.TextPut("[content]\r\nIt was two weeks before the Spring Festival and the shopping centre was crowded with shoppers.\r\n");
-                    agent.AudioWrite(bytelist);
-                    string path = @"C:\Users\Administrator\Desktop\ElearnOralResult\" + WechatRequest.FromUserName;
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-                    agent.GetAndSaveAnswer(path + "\\result.txt");
+                    agent.AudioWrite(fs);
+                    agent.GetAndSaveRemark(path + "\\result.txt");
                 }
             }
             catch (Exception e)

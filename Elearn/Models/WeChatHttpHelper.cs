@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.Configuration;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -11,8 +11,8 @@ namespace Elearn.Models
 {
     public class WeChatHttpHelper : MyHttpHelper
     {
-        private const string appid = "wx02d0aa4845c8f9ae";
-        private const string appsecert = "77c0f9d24fd9c63c28aadf6f05d04311";
+        private static string appid = WebConfigurationManager.AppSettings["WechatAppid"];
+        private static string appsecert = WebConfigurationManager.AppSettings["WechatSecert"];
         public static string Token = "";
         public const string TokenAPI = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
         public const string MediaDownloadAPI = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}";
@@ -90,6 +90,33 @@ namespace Elearn.Models
                     bytelist.Add((byte)bytenow);
                 }
                 return bytelist;
+            }
+        }
+        public static void DownloadAndSaveMedia(string mediaid, string targetpath)
+        {
+            if (string.IsNullOrEmpty(Token))
+            {
+                throw new Exception();
+            }
+            string url = string.Format(MediaDownloadAPI, Token, mediaid);
+            HttpWebRequest hwr = WebRequest.CreateHttp(url);
+            List<byte> bytelist = new List<byte>();
+            using (HttpWebResponse hwro = (HttpWebResponse)hwr.GetResponse())
+            {
+                Stream svoice = hwro.GetResponseStream();
+                int bytenow = 0;
+                while (-1 != (bytenow = svoice.ReadByte()))
+                {
+                    bytelist.Add((byte)bytenow);
+                }
+            }
+            using (FileStream fs = new FileStream(targetpath + @"\0.amr", FileMode.Create, FileAccess.Write))
+            {
+                foreach (var abyte in bytelist)
+                {
+                    fs.WriteByte(abyte);
+                }
+                fs.Flush();
             }
         }
     }
