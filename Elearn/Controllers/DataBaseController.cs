@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -216,7 +217,8 @@ namespace Elearn.Controllers
                     user_id = userid,
                     part_code = partcode,
                     eword_id = wordid,
-                    process_index = index
+                    process_index = index,
+                    oralsentence_id = null
                 };
                 db.processes.InsertOnSubmit(insertone);
             }
@@ -225,6 +227,7 @@ namespace Elearn.Controllers
                 hasexistid.part_code = partcode;
                 hasexistid.eword_id = wordid;
                 hasexistid.process_index = index;
+                hasexistid.oralsentence_id = null;
             }
             db.SubmitChanges();
         }
@@ -292,8 +295,24 @@ namespace Elearn.Controllers
         }
         private static string _getexamplesentence(ElearnDBDataContext db, ewords word)
         {
-            var sentence = db.sentences.FirstOrDefault(sen => sen.eword_id == word.eword_id);
-            return sentence.sentence;
+            var sentence = db.sentences.Where(sen => sen.eword_id == word.eword_id).Select(sen => sen.sentence);
+            string result = "";
+            int last = 2;
+            foreach (var item in sentence)
+            {
+                string newitem = Regex.Replace(item, "<[/]?vocab>", "");
+                result += newitem;
+                if (last == 2)
+                    result += "\r\n\r\n";
+                last--;
+                if (last == 0)
+                    break;
+            }
+            if (string.IsNullOrEmpty(result))
+            {
+                result += "暂无例句\r\n";
+            }
+            return result;
         }
     }
 }

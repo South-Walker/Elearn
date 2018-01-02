@@ -36,15 +36,21 @@ namespace Elearn.Models
     partial void Insertstudents(students instance);
     partial void Updatestudents(students instance);
     partial void Deletestudents(students instance);
-    partial void Insertprocesses(processes instance);
-    partial void Updateprocesses(processes instance);
-    partial void Deleteprocesses(processes instance);
     partial void Insertparts(parts instance);
     partial void Updateparts(parts instance);
     partial void Deleteparts(parts instance);
     partial void Insertewords(ewords instance);
     partial void Updateewords(ewords instance);
     partial void Deleteewords(ewords instance);
+    partial void Insertprocesses(processes instance);
+    partial void Updateprocesses(processes instance);
+    partial void Deleteprocesses(processes instance);
+    partial void Insertsentences(sentences instance);
+    partial void Updatesentences(sentences instance);
+    partial void Deletesentences(sentences instance);
+    partial void Insertoralsentences(oralsentences instance);
+    partial void Updateoralsentences(oralsentences instance);
+    partial void Deleteoralsentences(oralsentences instance);
     #endregion
 		
 		public ElearnDBDataContext() : 
@@ -93,14 +99,6 @@ namespace Elearn.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<processes> processes
-		{
-			get
-			{
-				return this.GetTable<processes>();
-			}
-		}
-		
 		public System.Data.Linq.Table<parts> parts
 		{
 			get
@@ -133,11 +131,27 @@ namespace Elearn.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<processes> processes
+		{
+			get
+			{
+				return this.GetTable<processes>();
+			}
+		}
+		
 		public System.Data.Linq.Table<sentences> sentences
 		{
 			get
 			{
 				return this.GetTable<sentences>();
+			}
+		}
+		
+		public System.Data.Linq.Table<oralsentences> oralsentences
+		{
+			get
+			{
+				return this.GetTable<oralsentences>();
 			}
 		}
 	}
@@ -467,263 +481,6 @@ namespace Elearn.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.processes")]
-	public partial class processes : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _user_id;
-		
-		private System.Nullable<int> _eword_id;
-		
-		private string _part_code;
-		
-		private System.Nullable<int> _process_index;
-		
-		private EntityRef<students> _students;
-		
-		private EntityRef<parts> _parts;
-		
-		private EntityRef<ewords> _ewords;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onuser_idChanging(int value);
-    partial void Onuser_idChanged();
-    partial void Oneword_idChanging(System.Nullable<int> value);
-    partial void Oneword_idChanged();
-    partial void Onpart_codeChanging(string value);
-    partial void Onpart_codeChanged();
-    partial void Onprocess_indexChanging(System.Nullable<int> value);
-    partial void Onprocess_indexChanged();
-    #endregion
-		
-		public processes()
-		{
-			this._students = default(EntityRef<students>);
-			this._parts = default(EntityRef<parts>);
-			this._ewords = default(EntityRef<ewords>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int user_id
-		{
-			get
-			{
-				return this._user_id;
-			}
-			set
-			{
-				if ((this._user_id != value))
-				{
-					if (this._students.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onuser_idChanging(value);
-					this.SendPropertyChanging();
-					this._user_id = value;
-					this.SendPropertyChanged("user_id");
-					this.Onuser_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_eword_id", DbType="Int")]
-		public System.Nullable<int> eword_id
-		{
-			get
-			{
-				return this._eword_id;
-			}
-			set
-			{
-				if ((this._eword_id != value))
-				{
-					if (this._ewords.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Oneword_idChanging(value);
-					this.SendPropertyChanging();
-					this._eword_id = value;
-					this.SendPropertyChanged("eword_id");
-					this.Oneword_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_code", DbType="VarChar(5)")]
-		public string part_code
-		{
-			get
-			{
-				return this._part_code;
-			}
-			set
-			{
-				if ((this._part_code != value))
-				{
-					if (this._parts.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onpart_codeChanging(value);
-					this.SendPropertyChanging();
-					this._part_code = value;
-					this.SendPropertyChanged("part_code");
-					this.Onpart_codeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_process_index", DbType="Int")]
-		public System.Nullable<int> process_index
-		{
-			get
-			{
-				return this._process_index;
-			}
-			set
-			{
-				if ((this._process_index != value))
-				{
-					this.Onprocess_indexChanging(value);
-					this.SendPropertyChanging();
-					this._process_index = value;
-					this.SendPropertyChanged("process_index");
-					this.Onprocess_indexChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="students_processes", Storage="_students", ThisKey="user_id", OtherKey="user_id", IsForeignKey=true)]
-		public students students
-		{
-			get
-			{
-				return this._students.Entity;
-			}
-			set
-			{
-				students previousValue = this._students.Entity;
-				if (((previousValue != value) 
-							|| (this._students.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._students.Entity = null;
-						previousValue.processes = null;
-					}
-					this._students.Entity = value;
-					if ((value != null))
-					{
-						value.processes = this;
-						this._user_id = value.user_id;
-					}
-					else
-					{
-						this._user_id = default(int);
-					}
-					this.SendPropertyChanged("students");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_processes", Storage="_parts", ThisKey="part_code", OtherKey="part_code", IsForeignKey=true)]
-		public parts parts
-		{
-			get
-			{
-				return this._parts.Entity;
-			}
-			set
-			{
-				parts previousValue = this._parts.Entity;
-				if (((previousValue != value) 
-							|| (this._parts.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._parts.Entity = null;
-						previousValue.processes.Remove(this);
-					}
-					this._parts.Entity = value;
-					if ((value != null))
-					{
-						value.processes.Add(this);
-						this._part_code = value.part_code;
-					}
-					else
-					{
-						this._part_code = default(string);
-					}
-					this.SendPropertyChanged("parts");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ewords_processes", Storage="_ewords", ThisKey="eword_id", OtherKey="eword_id", IsForeignKey=true)]
-		public ewords ewords
-		{
-			get
-			{
-				return this._ewords.Entity;
-			}
-			set
-			{
-				ewords previousValue = this._ewords.Entity;
-				if (((previousValue != value) 
-							|| (this._ewords.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ewords.Entity = null;
-						previousValue.processes.Remove(this);
-					}
-					this._ewords.Entity = value;
-					if ((value != null))
-					{
-						value.processes.Add(this);
-						this._eword_id = value.eword_id;
-					}
-					else
-					{
-						this._eword_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("ewords");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.parts")]
 	public partial class parts : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -738,9 +495,9 @@ namespace Elearn.Models
 		
 		private string _partname;
 		
-		private EntitySet<processes> _processes;
-		
 		private EntitySet<ewords> _ewords;
+		
+		private EntitySet<processes> _processes;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -758,8 +515,8 @@ namespace Elearn.Models
 		
 		public parts()
 		{
-			this._processes = new EntitySet<processes>(new Action<processes>(this.attach_processes), new Action<processes>(this.detach_processes));
 			this._ewords = new EntitySet<ewords>(new Action<ewords>(this.attach_ewords), new Action<ewords>(this.detach_ewords));
+			this._processes = new EntitySet<processes>(new Action<processes>(this.attach_processes), new Action<processes>(this.detach_processes));
 			OnCreated();
 		}
 		
@@ -843,19 +600,6 @@ namespace Elearn.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_processes", Storage="_processes", ThisKey="part_code", OtherKey="part_code")]
-		public EntitySet<processes> processes
-		{
-			get
-			{
-				return this._processes;
-			}
-			set
-			{
-				this._processes.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_ewords", Storage="_ewords", ThisKey="part_code", OtherKey="part_code")]
 		public EntitySet<ewords> ewords
 		{
@@ -866,6 +610,19 @@ namespace Elearn.Models
 			set
 			{
 				this._ewords.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_processes", Storage="_processes", ThisKey="part_code", OtherKey="part_code")]
+		public EntitySet<processes> processes
+		{
+			get
+			{
+				return this._processes;
+			}
+			set
+			{
+				this._processes.Assign(value);
 			}
 		}
 		
@@ -889,18 +646,6 @@ namespace Elearn.Models
 			}
 		}
 		
-		private void attach_processes(processes entity)
-		{
-			this.SendPropertyChanging();
-			entity.parts = this;
-		}
-		
-		private void detach_processes(processes entity)
-		{
-			this.SendPropertyChanging();
-			entity.parts = null;
-		}
-		
 		private void attach_ewords(ewords entity)
 		{
 			this.SendPropertyChanging();
@@ -908,6 +653,18 @@ namespace Elearn.Models
 		}
 		
 		private void detach_ewords(ewords entity)
+		{
+			this.SendPropertyChanging();
+			entity.parts = null;
+		}
+		
+		private void attach_processes(processes entity)
+		{
+			this.SendPropertyChanging();
+			entity.parts = this;
+		}
+		
+		private void detach_processes(processes entity)
 		{
 			this.SendPropertyChanging();
 			entity.parts = null;
@@ -932,6 +689,8 @@ namespace Elearn.Models
 		
 		private EntitySet<processes> _processes;
 		
+		private EntitySet<sentences> _sentences;
+		
 		private EntityRef<parts> _parts;
 		
     #region 可扩展性方法定义
@@ -953,6 +712,7 @@ namespace Elearn.Models
 		public ewords()
 		{
 			this._processes = new EntitySet<processes>(new Action<processes>(this.attach_processes), new Action<processes>(this.detach_processes));
+			this._sentences = new EntitySet<sentences>(new Action<sentences>(this.attach_sentences), new Action<sentences>(this.detach_sentences));
 			this._parts = default(EntityRef<parts>);
 			OnCreated();
 		}
@@ -1074,6 +834,19 @@ namespace Elearn.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ewords_sentences", Storage="_sentences", ThisKey="eword_id", OtherKey="eword_id")]
+		public EntitySet<sentences> sentences
+		{
+			get
+			{
+				return this._sentences;
+			}
+			set
+			{
+				this._sentences.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_ewords", Storage="_parts", ThisKey="part_code", OtherKey="part_code", IsForeignKey=true)]
 		public parts parts
 		{
@@ -1135,6 +908,18 @@ namespace Elearn.Models
 		}
 		
 		private void detach_processes(processes entity)
+		{
+			this.SendPropertyChanging();
+			entity.ewords = null;
+		}
+		
+		private void attach_sentences(sentences entity)
+		{
+			this.SendPropertyChanging();
+			entity.ewords = this;
+		}
+		
+		private void detach_sentences(sentences entity)
 		{
 			this.SendPropertyChanging();
 			entity.ewords = null;
@@ -1267,16 +1052,101 @@ namespace Elearn.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.sentences")]
-	public partial class sentences
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.processes")]
+	public partial class processes : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _user_id;
+		
+		private System.Nullable<int> _oralsentence_id;
 		
 		private System.Nullable<int> _eword_id;
 		
-		private string _sentence;
+		private string _part_code;
 		
-		public sentences()
+		private System.Nullable<int> _process_index;
+		
+		private EntityRef<ewords> _ewords;
+		
+		private EntityRef<parts> _parts;
+		
+		private EntityRef<students> _students;
+		
+		private EntityRef<oralsentences> _oralsentences;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onuser_idChanging(int value);
+    partial void Onuser_idChanged();
+    partial void Onoralsentence_idChanging(System.Nullable<int> value);
+    partial void Onoralsentence_idChanged();
+    partial void Oneword_idChanging(System.Nullable<int> value);
+    partial void Oneword_idChanged();
+    partial void Onpart_codeChanging(string value);
+    partial void Onpart_codeChanged();
+    partial void Onprocess_indexChanging(System.Nullable<int> value);
+    partial void Onprocess_indexChanged();
+    #endregion
+		
+		public processes()
 		{
+			this._ewords = default(EntityRef<ewords>);
+			this._parts = default(EntityRef<parts>);
+			this._students = default(EntityRef<students>);
+			this._oralsentences = default(EntityRef<oralsentences>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int user_id
+		{
+			get
+			{
+				return this._user_id;
+			}
+			set
+			{
+				if ((this._user_id != value))
+				{
+					if (this._students.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onuser_idChanging(value);
+					this.SendPropertyChanging();
+					this._user_id = value;
+					this.SendPropertyChanged("user_id");
+					this.Onuser_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_oralsentence_id", DbType="Int")]
+		public System.Nullable<int> oralsentence_id
+		{
+			get
+			{
+				return this._oralsentence_id;
+			}
+			set
+			{
+				if ((this._oralsentence_id != value))
+				{
+					if (this._oralsentences.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onoralsentence_idChanging(value);
+					this.SendPropertyChanging();
+					this._oralsentence_id = value;
+					this.SendPropertyChanged("oralsentence_id");
+					this.Onoralsentence_idChanged();
+				}
+			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_eword_id", DbType="Int")]
@@ -1290,7 +1160,296 @@ namespace Elearn.Models
 			{
 				if ((this._eword_id != value))
 				{
+					if (this._ewords.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Oneword_idChanging(value);
+					this.SendPropertyChanging();
 					this._eword_id = value;
+					this.SendPropertyChanged("eword_id");
+					this.Oneword_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_part_code", DbType="VarChar(5)")]
+		public string part_code
+		{
+			get
+			{
+				return this._part_code;
+			}
+			set
+			{
+				if ((this._part_code != value))
+				{
+					if (this._parts.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onpart_codeChanging(value);
+					this.SendPropertyChanging();
+					this._part_code = value;
+					this.SendPropertyChanged("part_code");
+					this.Onpart_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_process_index", DbType="Int")]
+		public System.Nullable<int> process_index
+		{
+			get
+			{
+				return this._process_index;
+			}
+			set
+			{
+				if ((this._process_index != value))
+				{
+					this.Onprocess_indexChanging(value);
+					this.SendPropertyChanging();
+					this._process_index = value;
+					this.SendPropertyChanged("process_index");
+					this.Onprocess_indexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ewords_processes", Storage="_ewords", ThisKey="eword_id", OtherKey="eword_id", IsForeignKey=true)]
+		public ewords ewords
+		{
+			get
+			{
+				return this._ewords.Entity;
+			}
+			set
+			{
+				ewords previousValue = this._ewords.Entity;
+				if (((previousValue != value) 
+							|| (this._ewords.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ewords.Entity = null;
+						previousValue.processes.Remove(this);
+					}
+					this._ewords.Entity = value;
+					if ((value != null))
+					{
+						value.processes.Add(this);
+						this._eword_id = value.eword_id;
+					}
+					else
+					{
+						this._eword_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("ewords");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parts_processes", Storage="_parts", ThisKey="part_code", OtherKey="part_code", IsForeignKey=true)]
+		public parts parts
+		{
+			get
+			{
+				return this._parts.Entity;
+			}
+			set
+			{
+				parts previousValue = this._parts.Entity;
+				if (((previousValue != value) 
+							|| (this._parts.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._parts.Entity = null;
+						previousValue.processes.Remove(this);
+					}
+					this._parts.Entity = value;
+					if ((value != null))
+					{
+						value.processes.Add(this);
+						this._part_code = value.part_code;
+					}
+					else
+					{
+						this._part_code = default(string);
+					}
+					this.SendPropertyChanged("parts");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="students_processes", Storage="_students", ThisKey="user_id", OtherKey="user_id", IsForeignKey=true)]
+		public students students
+		{
+			get
+			{
+				return this._students.Entity;
+			}
+			set
+			{
+				students previousValue = this._students.Entity;
+				if (((previousValue != value) 
+							|| (this._students.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._students.Entity = null;
+						previousValue.processes = null;
+					}
+					this._students.Entity = value;
+					if ((value != null))
+					{
+						value.processes = this;
+						this._user_id = value.user_id;
+					}
+					else
+					{
+						this._user_id = default(int);
+					}
+					this.SendPropertyChanged("students");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="oralsentences_processes", Storage="_oralsentences", ThisKey="oralsentence_id", OtherKey="oralsentence_id", IsForeignKey=true)]
+		public oralsentences oralsentences
+		{
+			get
+			{
+				return this._oralsentences.Entity;
+			}
+			set
+			{
+				oralsentences previousValue = this._oralsentences.Entity;
+				if (((previousValue != value) 
+							|| (this._oralsentences.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._oralsentences.Entity = null;
+						previousValue.processes.Remove(this);
+					}
+					this._oralsentences.Entity = value;
+					if ((value != null))
+					{
+						value.processes.Add(this);
+						this._oralsentence_id = value.oralsentence_id;
+					}
+					else
+					{
+						this._oralsentence_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("oralsentences");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.sentences")]
+	public partial class sentences : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _sentence_id;
+		
+		private System.Nullable<int> _eword_id;
+		
+		private string _sentence;
+		
+		private string _chinese;
+		
+		private EntityRef<ewords> _ewords;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onsentence_idChanging(int value);
+    partial void Onsentence_idChanged();
+    partial void Oneword_idChanging(System.Nullable<int> value);
+    partial void Oneword_idChanged();
+    partial void OnsentenceChanging(string value);
+    partial void OnsentenceChanged();
+    partial void OnchineseChanging(string value);
+    partial void OnchineseChanged();
+    #endregion
+		
+		public sentences()
+		{
+			this._ewords = default(EntityRef<ewords>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sentence_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int sentence_id
+		{
+			get
+			{
+				return this._sentence_id;
+			}
+			set
+			{
+				if ((this._sentence_id != value))
+				{
+					this.Onsentence_idChanging(value);
+					this.SendPropertyChanging();
+					this._sentence_id = value;
+					this.SendPropertyChanged("sentence_id");
+					this.Onsentence_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_eword_id", DbType="Int")]
+		public System.Nullable<int> eword_id
+		{
+			get
+			{
+				return this._eword_id;
+			}
+			set
+			{
+				if ((this._eword_id != value))
+				{
+					if (this._ewords.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Oneword_idChanging(value);
+					this.SendPropertyChanging();
+					this._eword_id = value;
+					this.SendPropertyChanged("eword_id");
+					this.Oneword_idChanged();
 				}
 			}
 		}
@@ -1306,9 +1465,225 @@ namespace Elearn.Models
 			{
 				if ((this._sentence != value))
 				{
+					this.OnsentenceChanging(value);
+					this.SendPropertyChanging();
 					this._sentence = value;
+					this.SendPropertyChanged("sentence");
+					this.OnsentenceChanged();
 				}
 			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_chinese", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string chinese
+		{
+			get
+			{
+				return this._chinese;
+			}
+			set
+			{
+				if ((this._chinese != value))
+				{
+					this.OnchineseChanging(value);
+					this.SendPropertyChanging();
+					this._chinese = value;
+					this.SendPropertyChanged("chinese");
+					this.OnchineseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ewords_sentences", Storage="_ewords", ThisKey="eword_id", OtherKey="eword_id", IsForeignKey=true)]
+		public ewords ewords
+		{
+			get
+			{
+				return this._ewords.Entity;
+			}
+			set
+			{
+				ewords previousValue = this._ewords.Entity;
+				if (((previousValue != value) 
+							|| (this._ewords.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ewords.Entity = null;
+						previousValue.sentences.Remove(this);
+					}
+					this._ewords.Entity = value;
+					if ((value != null))
+					{
+						value.sentences.Add(this);
+						this._eword_id = value.eword_id;
+					}
+					else
+					{
+						this._eword_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("ewords");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="elearndb.oralsentences")]
+	public partial class oralsentences : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _oralsentence_id;
+		
+		private string _sentence;
+		
+		private string _chinese;
+		
+		private EntitySet<processes> _processes;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onoralsentence_idChanging(int value);
+    partial void Onoralsentence_idChanged();
+    partial void OnsentenceChanging(string value);
+    partial void OnsentenceChanged();
+    partial void OnchineseChanging(string value);
+    partial void OnchineseChanged();
+    #endregion
+		
+		public oralsentences()
+		{
+			this._processes = new EntitySet<processes>(new Action<processes>(this.attach_processes), new Action<processes>(this.detach_processes));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_oralsentence_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int oralsentence_id
+		{
+			get
+			{
+				return this._oralsentence_id;
+			}
+			set
+			{
+				if ((this._oralsentence_id != value))
+				{
+					this.Onoralsentence_idChanging(value);
+					this.SendPropertyChanging();
+					this._oralsentence_id = value;
+					this.SendPropertyChanged("oralsentence_id");
+					this.Onoralsentence_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sentence", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string sentence
+		{
+			get
+			{
+				return this._sentence;
+			}
+			set
+			{
+				if ((this._sentence != value))
+				{
+					this.OnsentenceChanging(value);
+					this.SendPropertyChanging();
+					this._sentence = value;
+					this.SendPropertyChanged("sentence");
+					this.OnsentenceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_chinese", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string chinese
+		{
+			get
+			{
+				return this._chinese;
+			}
+			set
+			{
+				if ((this._chinese != value))
+				{
+					this.OnchineseChanging(value);
+					this.SendPropertyChanging();
+					this._chinese = value;
+					this.SendPropertyChanged("chinese");
+					this.OnchineseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="oralsentences_processes", Storage="_processes", ThisKey="oralsentence_id", OtherKey="oralsentence_id")]
+		public EntitySet<processes> processes
+		{
+			get
+			{
+				return this._processes;
+			}
+			set
+			{
+				this._processes.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_processes(processes entity)
+		{
+			this.SendPropertyChanging();
+			entity.oralsentences = this;
+		}
+		
+		private void detach_processes(processes entity)
+		{
+			this.SendPropertyChanging();
+			entity.oralsentences = null;
 		}
 	}
 }

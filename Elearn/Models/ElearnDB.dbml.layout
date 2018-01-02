@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 11.625" name="ElearnDB">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 11.625" name="ElearnDB">
   <DataContextMoniker Name="/ElearnDBDataContext" />
   <nestedChildShapes>
     <classShape Id="598015b9-fd2e-4394-8165-bf53bb616d76" absoluteBounds="0.75, 0.75, 2, 1.3805261230468751">
@@ -12,12 +12,6 @@
       <DataClassMoniker Name="/ElearnDBDataContext/students" />
       <nestedChildShapes>
         <elementListCompartment Id="181a1fdd-05e6-4022-ab52-2da0c5df905d" absoluteBounds="3.5150000005960464, 1.3350000008940697, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="574f281d-c483-4dad-be7a-ae28f5c51b33" absoluteBounds="6.25, 3.875, 2, 1.5715458169579506">
-      <DataClassMoniker Name="/ElearnDBDataContext/processes" />
-      <nestedChildShapes>
-        <elementListCompartment Id="0689a811-f434-4da7-ac0e-ddfba5322a37" absoluteBounds="6.2650000005960464, 4.33500000089407, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="fb3dffa6-fa7b-4ec1-aa2f-099748d7e259" absoluteBounds="0.75, 3.625, 2, 1.5715458169579506">
@@ -39,28 +33,7 @@
         <classShapeMoniker Id="b752c39d-e64f-4129-89cd-23693c24858e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 2.25552612356842); (4.5 : 4.66077290847898); (6.25 : 4.66077290847898)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/ElearnDBDataContext/students/students_processes" />
-      <nodes>
-        <classShapeMoniker Id="b752c39d-e64f-4129-89cd-23693c24858e" />
-        <classShapeMoniker Id="574f281d-c483-4dad-be7a-ae28f5c51b33" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.20538645423949); (4.41666666666667 : 4.20538645423949 : JumpStart); (4.58333333333333 : 4.20538645423949 : JumpEnd); (6.25 : 4.20538645423949)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/ElearnDBDataContext/parts/parts_processes" />
-      <nodes>
-        <classShapeMoniker Id="fb3dffa6-fa7b-4ec1-aa2f-099748d7e259" />
-        <classShapeMoniker Id="574f281d-c483-4dad-be7a-ae28f5c51b33" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5 : 5.875); (5 : 5.08491186271846); (6.25 : 5.08491186271846)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/ElearnDBDataContext/ewords/ewords_processes" />
-      <nodes>
-        <classShapeMoniker Id="a4941cb3-8a55-423d-93d9-3e8ce31fb03d" />
-        <classShapeMoniker Id="574f281d-c483-4dad-be7a-ae28f5c51b33" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 5.19654581695795); (1.75 : 6.75628275517374); (3.5 : 6.75628275517374)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 5.19654581695795); (1.75 : 6.75628275517374); (3.5 : 6.75628275517374)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ElearnDBDataContext/parts/parts_ewords" />
       <nodes>
         <classShapeMoniker Id="fb3dffa6-fa7b-4ec1-aa2f-099748d7e259" />
@@ -79,17 +52,57 @@
         <elementListCompartment Id="54b11063-0641-49b8-a1a7-b22af76c303b" absoluteBounds="0.63999999999999968, 10.46, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="15677bf2-e723-4336-b180-90cb2a16fb85" absoluteBounds="6.25, 6.125, 2, 1.1895064290364577">
-      <DataClassMoniker Name="/ElearnDBDataContext/sentences" />
+    <classShape Id="dfbc9a44-e722-4132-a984-c503c229047b" absoluteBounds="6.375, 3.75, 2, 1.7625655110677081">
+      <DataClassMoniker Name="/ElearnDBDataContext/processes" />
       <nestedChildShapes>
-        <elementListCompartment Id="eefca600-b1af-4ac9-a20c-f98126a8c91f" absoluteBounds="6.2650000000000006, 6.585, 1.9700000000000002, 0.62950642903645826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f72f1be3-420d-4f2b-81be-737a0cb3b9e8" absoluteBounds="6.39, 4.21, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.5 : 6.71975321451823); (6.25 : 6.71975321451823)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 6.21875); (6.71875 : 6.21875); (6.71875 : 5.51256551106771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ElearnDBDataContext/ewords/ewords_processes" />
+      <nodes>
+        <classShapeMoniker Id="a4941cb3-8a55-423d-93d9-3e8ce31fb03d" />
+        <classShapeMoniker Id="dfbc9a44-e722-4132-a984-c503c229047b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.88228597000241); (6.375 : 4.88228597000241)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ElearnDBDataContext/parts/parts_processes" />
+      <nodes>
+        <classShapeMoniker Id="fb3dffa6-fa7b-4ec1-aa2f-099748d7e259" />
+        <classShapeMoniker Id="dfbc9a44-e722-4132-a984-c503c229047b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 2.25552612356842); (4.5 : 4.28489048500121); (6.375 : 4.28489048500121)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ElearnDBDataContext/students/students_processes" />
+      <nodes>
+        <classShapeMoniker Id="b752c39d-e64f-4129-89cd-23693c24858e" />
+        <classShapeMoniker Id="dfbc9a44-e722-4132-a984-c503c229047b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6201c8b1-0014-415a-9c30-b899825a61e8" absoluteBounds="7.125, 6.625, 2, 1.5715458170572916">
+      <DataClassMoniker Name="/ElearnDBDataContext/sentences" />
+      <nestedChildShapes>
+        <elementListCompartment Id="090b0173-78a7-4a2e-ba98-1f0d9dc23787" absoluteBounds="7.14, 7.0850000000000009, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 7.13128275517374); (7.125 : 7.13128275517374)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ElearnDBDataContext/ewords/ewords_sentences" />
       <nodes>
         <classShapeMoniker Id="a4941cb3-8a55-423d-93d9-3e8ce31fb03d" />
-        <classShapeMoniker Id="15677bf2-e723-4336-b180-90cb2a16fb85" />
+        <classShapeMoniker Id="6201c8b1-0014-415a-9c30-b899825a61e8" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="ca233b39-8e33-4551-a5bf-a5bbdfbbef41" absoluteBounds="9.25, 3.25, 2, 1.3805261230468751">
+      <DataClassMoniker Name="/ElearnDBDataContext/oralsentences" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a7f1613d-466c-4eef-bc35-71723a72fc9e" absoluteBounds="9.265, 3.71, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.25 : 4.19026306152344); (8.375 : 4.19026306152344)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ElearnDBDataContext/oralsentences/oralsentences_processes" />
+      <nodes>
+        <classShapeMoniker Id="ca233b39-8e33-4551-a5bf-a5bbdfbbef41" />
+        <classShapeMoniker Id="dfbc9a44-e722-4132-a984-c503c229047b" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

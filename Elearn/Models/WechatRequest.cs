@@ -27,8 +27,8 @@ namespace Elearn.Models
         public string MediaId = "";
         public string studentid = null;//同上
         public string ty_pwd = null;//同上
-        public static string elearning_testmsg2 = "请输入您想学习的Part前的数字：\r\n00111 Part2\r\n00112 Part3";
         public static string elearning_testmsg1 = "请输入您想学习的单元前的数字：\r\n0011 Unit1\r\n0012 Unit2\r\n0013 Unit3\r\n0014 Unit4\r\n0015 Unit5\r\n0016 Unit6\r\n0017 Unit7\r\n0018 Unit8";
+        public static string elearning_testmsg2 = "请输入您想学习的单元前的数字：\r\n2011 Unit1\r\n2012 Unit2\r\n2013 Unit3\r\n2014 Unit4\r\n2015 Unit5\r\n2016 Unit6\r\n2017 Unit7\r\n2018 Unit8";
         public static string elearning_changestudentnum = "想要更改绑定吗？后台回复xh+学号，如xh10161000，重新绑定学号";
         public static string elearning_textlearn = "您想学习哪本书上的课文？\r\n（请输入相应数字）\r\n201.综合教程3\r\n202.综合教程4\r\n203.阅读教程上\r\n204.阅读教程下";
         public static string elearning_textintensivelearn = "您想练习哪本书上的课文？\r\n（请输入相应数字）\r\n301.综合教程3\r\n302.综合教程4\r\n303.阅读教程上\r\n304.阅读教程下";

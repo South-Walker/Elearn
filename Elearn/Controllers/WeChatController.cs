@@ -40,7 +40,7 @@ namespace Elearn.Controllers
                             else
                                 return WechatRequest.Get_Reply("当前未设立测试范围或已经学习完全部内容");
                         case "elearning_oraltrain":
-                            return WechatRequest.Get_Reply("It was two weeks before the Spring Festival and the shopping centre was crowded with shoppers.");
+                            return WechatRequest.Get_Reply("It was two weeks before the Spring Festival.");
                         default:
                             return WechatRequest.Get_Reply("功能还在开发中，敬请期待");
                     }
@@ -86,15 +86,22 @@ namespace Elearn.Controllers
                     }
                     else
                     {
-                        if (Regex.IsMatch(message, "\\d{5,5}"))
+                        if (Regex.IsMatch(message, "\\d{4,4}"))
                         {
-                            if (DataBaseController.tryUpdateProcesses(WechatRequest.FromUserName, message))
+                            if (message.Substring(0, 1) == "0")
                             {
-                                return WechatRequest.Get_Reply("选择成功！按next开始学习");
+                                if (DataBaseController.tryUpdateProcesses(WechatRequest.FromUserName, message))
+                                {
+                                    return WechatRequest.Get_Reply("选择成功！按next开始学习");
+                                }
+                                else
+                                {
+                                    return WechatRequest.Get_Reply("选择失败，请确认是否绑定学号及输入代码是否正确");
+                                }
                             }
-                            else
+                            else if (message.Substring(0, 1) == "2") 
                             {
-                                return WechatRequest.Get_Reply("选择失败，请确认是否绑定学号及输入代码是否正确");
+                                return WechatRequest.Get_Reply("晚上做");
                             }
                         }
                         if (!DataBaseController.HaveBinding(WechatRequest.FromUserName))
@@ -105,7 +112,7 @@ namespace Elearn.Controllers
                         {
                             case "001":
                                 return WechatRequest.Get_Reply(WechatRequest.elearning_testmsg1);
-                            case "0011":
+                            case "201":
                                 return WechatRequest.Get_Reply(WechatRequest.elearning_testmsg2);
                             case "speak":
                                 string word = DataBaseController.GetNowWord(WechatRequest.FromUserName);
@@ -183,7 +190,7 @@ namespace Elearn.Controllers
                         WechatRequest.Save_log("\r\n" + agent.errorCode);
                         return;
                     }
-                    agent.TextPut("[content]\r\nIt was two weeks before the Spring Festival and the shopping centre was crowded with shoppers.\r\n");
+                    agent.TextPut("[content]\r\nIt was two weeks before the Spring Festival.\r\n");
                     agent.AudioWrite(fs);
                     agent.GetAndSaveRemark(path + "\\result.txt");
                 }

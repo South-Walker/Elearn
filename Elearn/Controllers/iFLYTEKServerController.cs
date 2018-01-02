@@ -151,7 +151,7 @@ namespace Elearn.Controllers
             int audStat = (int)AudioSample.MSP_AUDIO_SAMPLE_CONTINUE;
             while (true)
             {
-                uint len = 6400;// 每次写入200ms音频(16k，16bit)：1帧音频20ms，10帧=200ms。16k采样率的16位音频，一帧的大小为640Byte
+                uint len = 3200;// 每次写入200ms音频(16k，16bit)：1帧音频20ms，10帧=200ms。16k采样率的16位音频，一帧的大小为640Byte
                 if (size <= 2 * len)
                 {
                     len = (uint)size;
@@ -179,7 +179,7 @@ namespace Elearn.Controllers
             int audStat = (int)AudioSample.MSP_AUDIO_SAMPLE_CONTINUE;
             while (true)
             {
-                uint len = 6400;// 每次写入200ms音频(16k，16bit)：1帧音频20ms，10帧=200ms。16k采样率的16位音频，一帧的大小为640Byte
+                uint len = 3200;// 每次写入200ms音频(16k，16bit)：1帧音频20ms，10帧=200ms。16k采样率的16位音频，一帧的大小为640Byte
                 if (size <= 2 * len)
                 {
                     len = (uint)size;
@@ -207,7 +207,7 @@ namespace Elearn.Controllers
             int audStat = (int)AudioSample.MSP_AUDIO_SAMPLE_CONTINUE;
             while (true)
             {
-                uint len = 6400;// 每次写入200ms音频(16k，16bit)：1帧音频20ms，10帧=200ms。16k采样率的16位音频，一帧的大小为640Byte
+                uint len = 3200;// 每次写入200ms音频(16k，16bit)：1帧音频20ms，10帧=200ms。16k采样率的16位音频，一帧的大小为640Byte
                 if (size <= 2 * len)
                 {
                     len = (uint)size;
@@ -241,7 +241,7 @@ namespace Elearn.Controllers
         public void GetAndSaveRemark(string path)
         {
             string answer = GetAnswer();
-            using (var fs = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
+            using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 var sw = new StreamWriter(fs);
                 ISEResultReader reader = new ISEResultReader(answer);
