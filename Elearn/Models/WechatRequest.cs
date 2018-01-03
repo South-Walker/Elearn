@@ -198,6 +198,20 @@ namespace Elearn.Models
                 "]]></MediaId></Voice></xml>";
             return reply;
         }
+        public string Get_ImgText()
+        {
+            string reply = "<xml><ToUserName><![CDATA[" + FromUserName +
+                "]]></ToUserName><FromUserName><![CDATA[" + ToUserName +
+                "]]></FromUserName><CreateTime>" + ConvertDateTimeInt(DateTime.Now)
+                + "</CreateTime><MsgType><![CDATA[" + "news" +
+                "]]></MsgType><ArticleCount>" + "2" +
+                "</ArticleCount><Articles>" +
+                "<item><Title><![CDATA[Book3]]></Title><Description><![CDATA[]]></Description>" +
+                "<PicUrl><![CDATA[http://www.xiaoliming96.com/images/test.jpg]]></PicUrl><Url><![CDATA[]]></Url></item>" +
+                "<item><Title><![CDATA[Unit1]]></Title><Description><![CDATA[]]></Description><PicUrl><![CDATA[http://www.xiaoliming96.com/images/test.jpg]]></PicUrl><Url><![CDATA[http://www.xiaoliming96.com/englishtext/b3u1p2/]]></Url></item>" +
+                "</Articles></xml>";
+            return reply;
+        }
         public static int ConvertDateTimeInt(DateTime time)
         {
             DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));

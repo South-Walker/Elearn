@@ -101,7 +101,7 @@ namespace Elearn.Controllers
                             }
                             else if (message.Substring(0, 1) == "2") 
                             {
-                                return WechatRequest.Get_Reply("晚上做");
+                                return WechatRequest.Get_ImgText();
                             }
                         }
                         if (!DataBaseController.HaveBinding(WechatRequest.FromUserName))

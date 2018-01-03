@@ -34,10 +34,10 @@ C:\Users\Administrator\Desktop\Elearn\Elearn\bin\zh-Hans\System.Web.Webpages.Dep
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\zh-Hans\System.Web.Helpers.resources.dll
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\zh-Hans\System.Web.Mvc.resources.dll
-C:\Users\Administrator\Desktop\Elearn\Elearn\obj\Release\Elearn.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Desktop\Elearn\Elearn\obj\Release\Elearn.dll
 C:\Users\Administrator\Desktop\Elearn\Elearn\obj\Release\Elearn.pdb
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\AipSdk.dll
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\Newtonsoft.Json.dll
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\AipSdk.xml
 C:\Users\Administrator\Desktop\Elearn\Elearn\bin\Newtonsoft.Json.xml
+C:\Users\Administrator\Desktop\Elearn\Elearn\obj\Release\Elearn.csprojResolveAssemblyReference.cache

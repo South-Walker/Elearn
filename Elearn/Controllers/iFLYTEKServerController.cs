@@ -247,7 +247,6 @@ namespace Elearn.Controllers
                 ISEResultReader reader = new ISEResultReader(answer);
                 sw.Write(reader.ToString());
                 sw.Flush();
-                sw.Close();
             }
         }
         public void GetAndSaveAnswer(string path)
@@ -258,16 +257,19 @@ namespace Elearn.Controllers
                 var sw = new StreamWriter(fs);
                 sw.Write(answer);
                 sw.Flush();
-                sw.Close();
             }
         }
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
             if (!string.IsNullOrEmpty(SessionID))
                 errorCode = ISEDLL.QISESessionEnd(SessionID, null);
             errorCode = ISEDLL.MSPLogout();
         }
-
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -280,18 +282,18 @@ namespace Elearn.Controllers
             {
                 File.Delete(TargetPath);
             }
-            Process p = new Process();//建立外部调用线程
-            p.StartInfo.FileName = @"C:\Users\Administrator\Desktop\ElearnOralResult\ffmpeg.exe";//要调用外部程序的绝对路径
-            p.StartInfo.Arguments = "-i  " + FromPath + "  " + TargetPath;//+ "  -i";//参数(这里就是FFMPEG的参数了)
-            p.StartInfo.UseShellExecute = false;//不使用操作系统外壳程序启动线程(一定为FALSE,详细的请看MSDN)
-            p.StartInfo.RedirectStandardError = true;//把外部程序错误输出写到StandardError流中(这个一定要注意,FFMPEG的所有输出信息,都为错误输出流,用StandardOutput是捕获不到任何消息的这是我耗费了2个多月得出来的经验mencoder就是用standardOutput来捕获的)
-            p.StartInfo.CreateNoWindow = false;//不创建进程窗口
-            p.ErrorDataReceived += new DataReceivedEventHandler(Output);//外部程序(这里是FFMPEG)输出流时候产生的事件,这里是把流的处理过程转移到下面的方法中,详细请查阅MSDN
-            p.Start();//启动线程
-            p.BeginErrorReadLine();//开始异步读取
-            p.WaitForExit();//阻塞等待进程结束
-            p.Close();//关闭进程
-            p.Dispose();//释放资源
+            using (Process p = new Process())
+            {
+                p.StartInfo.FileName = @"C:\Users\Administrator\Desktop\ElearnOralResult\ffmpeg.exe";//要调用外部程序的绝对路径
+                p.StartInfo.Arguments = "-i  " + FromPath + "  " + TargetPath;//+ "  -i";//参数(这里就是FFMPEG的参数了)
+                p.StartInfo.UseShellExecute = false;//不使用操作系统外壳程序启动线程(一定为FALSE,详细的请看MSDN)
+                p.StartInfo.RedirectStandardError = true;//把外部程序错误输出写到StandardError流中(这个一定要注意,FFMPEG的所有输出信息,都为错误输出流,用StandardOutput是捕获不到任何消息的这是我耗费了2个多月得出来的经验mencoder就是用standardOutput来捕获的)
+                p.StartInfo.CreateNoWindow = false;//不创建进程窗口
+                p.ErrorDataReceived += new DataReceivedEventHandler(Output);//外部程序(这里是FFMPEG)输出流时候产生的事件,这里是把流的处理过程转移到下面的方法中,详细请查阅MSDN
+                p.Start();//启动线程
+                p.BeginErrorReadLine();//开始异步读取
+                p.WaitForExit();//阻塞等待进程结束
+            }
         }
         private static void Output(object sendProcess, DataReceivedEventArgs output)
         {
@@ -359,9 +361,9 @@ namespace Elearn.Controllers
             return Encoding.Default.GetString(lb.ToArray());
         }
     }
-    public static class ISEDLL
+    internal static class ISEDLL
     {
-        #region ISE dll import
+        #region ISE dll import        
         [DllImport(@"msc.dll", CallingConvention = CallingConvention.Winapi)]
         public static extern int MSPLogin(string usr, string pwd, string param);
         [DllImport(@"msc.dll", CallingConvention = CallingConvention.Winapi)]

@@ -106,6 +106,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DataBaseController.cs" />
+    <Compile Include="Controllers\EnglishTextController.cs" />
     <Compile Include="Controllers\iFLYTEKServerController.cs" />
     <Compile Include="Controllers\SpeecherController.cs" />
     <Compile Include="Controllers\WeChatController.cs" />
@@ -119,13 +120,11 @@
     </Compile>
     <Compile Include="Models\JWCHttpHelper.cs" />
     <Compile Include="Models\MyHttpHelper.cs" />
-    <Compile Include="Models\StudentInfo.cs" />
     <Compile Include="Models\WeChatHttpHelper.cs" />
     <Compile Include="Models\WechatRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Models\ElearnDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -133,6 +132,8 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\elearnpublicer.pubxml" />
+    <Content Include="Views\EnglishText\B3U1P2View.cshtml" />
+    <Content Include="Views\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
