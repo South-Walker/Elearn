@@ -208,7 +208,7 @@ namespace Elearn.Models
                 "</ArticleCount><Articles>" +
                 "<item><Title><![CDATA[Book3]]></Title><Description><![CDATA[]]></Description>" +
                 "<PicUrl><![CDATA[http://www.xiaoliming96.com/images/test.jpg]]></PicUrl><Url><![CDATA[]]></Url></item>" +
-                "<item><Title><![CDATA[Unit1]]></Title><Description><![CDATA[]]></Description><PicUrl><![CDATA[http://www.xiaoliming96.com/images/test.jpg]]></PicUrl><Url><![CDATA[http://www.xiaoliming96.com/englishtext/b3u1p2/]]></Url></item>" +
+                "<item><Title><![CDATA[Unit1]]></Title><Description><![CDATA[]]></Description><PicUrl><![CDATA[http://www.xiaoliming96.com/images/test2.jpg]]></PicUrl><Url><![CDATA[http://www.xiaoliming96.com/englishtext/b3u1p2/]]></Url></item>" +
                 "</Articles></xml>";
             return reply;
         }
